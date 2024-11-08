@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/WhatWePlay"
+        android:icon="@drawable/baseline_videogame_asset_24"
+        android:title="What We Play" />
+    <item
+        android:id="@+id/OurSchedule"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="Our Schedule" />
+    <item
+        android:id="@+id/WhoWeAre"
+        android:icon="@drawable/baseline_groups_2_24"
+        android:title="Who We Are" />
+</menu>

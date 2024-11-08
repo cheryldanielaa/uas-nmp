@@ -34,25 +34,20 @@ class AchievementDetails : AppCompatActivity() {
 
         //ini list untuk bikin tahunnya
         //list udh kefilter menurut cabang
-        var listTahun = mutableSetOf<Int>() //Menggunakan set utk menghindari duplikat
+        var listTahun = mutableSetOf<String>() //Menggunakan set utk menghindari duplikat
+        listTahun.add("All")
         for (ach in achievement) {
             //tambahin ke set
-            listTahun.add(ach.year)
+            listTahun.add(ach.year.toString())
         }
         //atur year dan sort secara descending
         val listSorted = listTahun.toList().sorted()
-        var listTahunStr = mutableSetOf<String>()
-        listTahunStr.add("All")
-        for (year in listSorted) {
-            //tambahin ke set
-            listTahunStr.add(year.toString())
-        }
 
         //buat objek array adapter buat ambil data dr achievement data
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            listTahunStr.toList() //ubah set ke list
+            listSorted.toList() //ubah set ke list
         )
         binding.spinnerYear.adapter = adapter
 
