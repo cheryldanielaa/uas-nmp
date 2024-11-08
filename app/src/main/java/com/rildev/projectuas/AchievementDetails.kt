@@ -41,7 +41,9 @@ class AchievementDetails : AppCompatActivity() {
             listTahun.add(ach.year.toString())
         }
         //atur year dan sort secara descending
-        val listSorted = listTahun.toList().sorted()
+        val listSorted = listTahun.toList().sorted().
+        let { listOf("All") + it.filter { it != "All" } } //solusinya all ditaruh di paling atas,
+        //sisanya diurutin secara ascending, tanpa melibatkan all
 
         //buat objek array adapter buat ambil data dr achievement data
         val adapter = ArrayAdapter(
