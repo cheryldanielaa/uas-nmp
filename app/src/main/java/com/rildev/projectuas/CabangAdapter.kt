@@ -2,6 +2,7 @@ package com.rildev.projectuas
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,15 +41,19 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
         holder.binding.logoCabang.setImageResource(cabangs[position].logo_gambar)
 
         //atur supaya button itu bisa klo klik kirim value
-        //caranya gtw
-//        holder.binding.btnAchievement.setOnClickListener {
-//            val activity = holder.itemView.context as Activity
-//            val intent = Intent(activity, AchievementDetails::class.java)
-//            intent.putExtra(CabangPageList.NAMA_CABANG, CabangData.cabang[position].namaCabang)
-//            intent.putExtra(CabangPageList.GAMBAR_CABANG, CabangData.cabang[position].logo_gambar)
-//            activity.startActivity(intent)
-//        }
+        holder.binding.btnAchievement.setOnClickListener {
+            val activity = holder.itemView.context as Activity
+            val selectedCabang = cabangs[position].namaCabang
+            var achievementlist = AchievementData.achievement.toMutableList()
+            //filter supaya yang dikirim hanya achievement sesuai cabang yang diklik aja
+            achievementlist = achievementlist.filter { it.cabangLomba.namaCabang == selectedCabang }.toMutableList()
+            val intent = Intent(activity, AchievementDetails::class.java)
+            intent.putParcelableArrayListExtra(AchievementDetails.CABANG_ACHIEVEMENT, ArrayList(achievementlist))
+            activity.startActivity(intent)
+        }
 //
+
+
 //        holder.binding.btnTeams.setOnClickListener {
 //            val activity = holder.itemView.context as Activity
 //            val intent = Intent(activity, TeamPageList::class.java)
