@@ -5,54 +5,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.rildev.projectuas.databinding.FragmentOurScheduleBinding
+import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val KEY_EVENTS="schedule"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OurScheduleFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+//krn yg ditampilin ecycler view, jd gak pake ListFragment, tpi Fragment biasa
 class OurScheduleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    //Our Schedule ini menyimpan list dari schedule yang ada
+
+    //array kosongan utk menampung data yang dikirimkan dari main activity
+    private var schedule:ArrayList<ScheduleBank> = ArrayList()
+
+    //deklarasikan binding
+    private lateinit var binding: FragmentOurScheduleBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            //terima cabang dari mainactivity trs disimpan di list kosong yang udah
+            //dideclare diatas
+                schedule = it.getParcelableArrayList<ScheduleBank>(KEY_EVENTS) as ArrayList<ScheduleBank>
         }
     }
 
+    //tampilin design fragmentnya
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_our_schedule, container, false)
+        binding = FragmentOurScheduleBinding.inflate(inflater, container, false)
+        binding.recSchedule.layoutManager = LinearLayoutManager(requireContext())
+        binding.recSchedule.setHasFixedSize(true) //utk memastikan setiap card pny ukuran yg sama
+        //kirimin parameter listschedule ke OurScheduleAdapter
+        binding.recSchedule.adapter = OurScheduleAdapter(schedule)
+        //Inflate the layout for this fragment
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OurScheduleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(schedule: ArrayList<ScheduleBank>) =
             OurScheduleFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelableArrayList(KEY_EVENTS, schedule) //events ini buat receive ArrayList dari MainActivity
                 }
             }
     }

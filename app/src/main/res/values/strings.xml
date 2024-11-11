@@ -6,4 +6,11 @@
         drive and tactical prowess across multiple gaming titles, especially in Valorant and League of Legends.
         With a roster of skilled players and a reputation for teamwork and strategic excellence, Titan Strike has earned top placements in regional and international tousaments.
         Their commitment to innovation and growth continues to make them a formidable force in the e-sports arena.</string>
+    <string name="nama_event"> Regional Qualifier - Valorant</string>
+    <string name="waktu_event"> Los Angeles, CA (10.00 AM) </string>
+    <string name="nama_team"> TEAM A </string>
+    <string name="deskripsi_event"> This high-stakes event will bring together top teams from across the region,
+        all competing for a chance to advance to the national finals. Expect intense gameplay, strategic plays, and thrilling
+        moments as teams battle it out in one of the most popular first-person shooters. Fans can anticipate an action-packed day
+        filled with memorable highlights and fierce competition in the heart of the esports scene.</string>
 </resources>
