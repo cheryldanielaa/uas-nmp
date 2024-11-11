@@ -20,13 +20,13 @@ class SignIn : AppCompatActivity() {
         //baca list user
         var listUser = UserData.users
 
-        //baca inputan username dan password user
-        var usn = binding.txtUsername.text.toString()
-        var pass =binding.txtPassword.text.toString()
 
         //cek apakah bisa login atau nggak
-        var statusLogin=false
         binding.btnSubmit.setOnClickListener {
+            var statusLogin=false
+            //baca inputan username dan password user
+            var usn = binding.txtUsername.text.toString()
+            var pass =binding.txtPassword.text.toString()
             for (user in listUser) {
                 if (user.username == usn && user.password == pass) {
                     statusLogin=true
