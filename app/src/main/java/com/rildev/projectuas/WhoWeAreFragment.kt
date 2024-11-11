@@ -20,8 +20,8 @@ class WhoWeAreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
+        ): View? {
+            binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
             binding.btnLike.setOnClickListener(){
             var likeCount = binding.btnLike.text.toString().toInt()
             likeCount++
