@@ -5,18 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.rildev.projectuas.databinding.ActivityAchievementDetailsBinding.inflate
 import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
-import com.rildev.projectuas.databinding.FragmentWhoWeAreBinding
+import com.rildev.projectuas.databinding.FragmentWhoWeAreFragmentBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [WhoWeAreFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 
 class WhoWeAreFragment : Fragment() {
-    private lateinit var binding: FragmentWhoWeAreBinding
+    private lateinit var binding:FragmentWhoWeAreFragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -27,20 +21,14 @@ class WhoWeAreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWhoWeAreBinding.inflate(inflater, container, false)
-        binding.btnLike.setOnClickListener(){
+        binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
+            binding.btnLike.setOnClickListener(){
             var likeCount = binding.btnLike.text.toString().toInt()
             likeCount++
             binding.btnLike.text = likeCount.toString()
         }
+        // Inflate the layout for this fragment
         return binding.root
-
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     companion object {
@@ -48,9 +36,8 @@ class WhoWeAreFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             WhoWeAreFragment().apply {
                 arguments = Bundle().apply {
-                    //putString(ARGS_LIKE, binding.btnLike.text)
+
                 }
             }
     }
-
 }

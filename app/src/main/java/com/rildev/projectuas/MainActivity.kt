@@ -28,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         //keintegrasi trs bs digeser"
         val fragments: ArrayList<Fragment> = ArrayList()
         //urutan array lis ini nentuin urutan fragmentnya yg pertama mana, kedua mana
+        //klo mau kirimin value masukin disini, jangan lewat begintransaction karena fungsinya sama aja
+        //klo kamu pake begin transaction jd numpuk gak jelas, trs dia gak bisa nggeser
+        fragments.add(WhatWePlayFragment.newInstance(cabangs))
         fragments.add(OurScheduleFragment())
-        fragments.add(WhatWePlayFragment())
         fragments.add(WhoWeAreFragment())
-
         binding.viewPager.adapter = MyAdapter(this, fragments) //hubungin sm
 
         //ini buat ngecode klo viewpagernya digeser, menu item yang dihover ikut geser
@@ -54,36 +55,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.WhoWeAre -> 2 //klo index ke 2 di bottomNav=2, maka who we are
                 else -> 0 // default to home
             }
-            //kirim cabang dalam bentuk objek
-            //cabang yang di dalam kurung itu cabang list yang dideclare diatas
-            if(binding.viewPager.currentItem==0){
-                var cabangFragmentList = WhatWePlayFragment.newInstance(cabangs)
-//                //pake replace biar dia bs berubah scr dinamis
-                supportFragmentManager.beginTransaction().apply{
-                    replace(R.id.container, cabangFragmentList) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
-                    commit()
-                }
-            }
-            //DUMMY BUAT NYOBA DOANG JALAN ATAU NGGA
-            //NANTI DISESUAIIN SM CODE KALIANN
-            else if(binding.viewPager.currentItem==1){
-                var babi = OurScheduleFragment.newInstance("a","b")
-                supportFragmentManager.beginTransaction().apply{
-                    replace(R.id.container, babi) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
-                    commit()
-                }
-            }
-//            else if(binding.viewPager.currentItem==2){
-////                var siapaKita = WhoWeAreFragment.newInstance("a","b")
-////                supportFragmentManager.beginTransaction().apply{
-////                    replace(R.id.container, siapaKita) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
-////                    commit()
-////                }
-//            }
             true
-
         }
-
-
     }
 }
