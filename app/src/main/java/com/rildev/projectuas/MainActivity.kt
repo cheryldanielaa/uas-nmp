@@ -31,18 +31,13 @@ class MainActivity : AppCompatActivity() {
         //keintegrasi trs bs digeser"
         val fragments: ArrayList<Fragment> = ArrayList()
         //urutan array lis ini nentuin urutan fragmentnya yg pertama mana, kedua mana
-<<<<<<< Updated upstream
+
         //klo mau kirimin value masukin disini, jangan lewat begintransaction karena fungsinya sama aja
         //klo kamu pake begin transaction jd numpuk gak jelas, trs dia gak bisa nggeser
-        fragments.add(WhatWePlayFragment.newInstance(cabangs))
-        fragments.add(OurScheduleFragment())
-        fragments.add(WhoWeAreFragment())
-=======
         fragments.add(WhatWePlayFragment.newInstance(cabangs))
         fragments.add(OurScheduleFragment.newInstance(schedule))
         fragments.add(WhoWeAreFragment.newInstance("a", "b"))
 
->>>>>>> Stashed changes
         binding.viewPager.adapter = MyAdapter(this, fragments) //hubungin sm
 
         //ini buat ngecode klo viewpagernya digeser, menu item yang dihover ikut geser
