@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             else if(binding.viewPager.currentItem==2){
-                var pooh = WhoWeAreFragment.newInstance("a","b")
+                var siapaKita = WhoWeAreFragment.newInstance("a","b")
                 supportFragmentManager.beginTransaction().apply{
-                    replace(R.id.container, pooh) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
+                    replace(R.id.container, siapaKita) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
                     commit()
                 }
             }
