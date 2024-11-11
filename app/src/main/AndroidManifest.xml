@@ -25,8 +25,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".TeamPageList"
+            android:exported="false" />
+        <activity
+            android:name=".MemberPageList"
+            android:exported="false" />
+        <activity
             android:name=".AchievementDetails"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
+
     </application>
 
 </manifest>

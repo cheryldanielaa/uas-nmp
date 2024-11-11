@@ -54,12 +54,17 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
 //
 
 
-//        holder.binding.btnTeams.setOnClickListener {
-//            val activity = holder.itemView.context as Activity
-//            val intent = Intent(activity, TeamPageList::class.java)
-//            intent.putExtra(CabangPageList.GAMBAR_CABANG, CabangData.cabang[position].logo_gambar)
-//            intent.putExtra(CabangPageList.NAMA_CABANG, CabangData.cabang[position].namaCabang)
-//            activity.startActivity(intent)
-//        }
+        holder.binding.btnTeams.setOnClickListener {
+            val activity=holder.itemView.context as Activity
+            val selectedCabang=cabangs[position].namaCabang
+            var teamlist=TeamData.timList.toMutableList()
+            teamlist=teamlist.filter { it.cabang.namaCabang == selectedCabang }.toMutableList()
+            val intent=Intent(activity, TeamPageList::class.java)
+            intent.putParcelableArrayListExtra(
+                TeamPageList.CABANG,
+                ArrayList(teamlist)
+            )
+            activity.startActivity(intent)
+        }
     }
 }
