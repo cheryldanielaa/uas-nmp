@@ -35,9 +35,11 @@ class SignIn : AppCompatActivity() {
                 }
             }
             if(statusLogin==true){
-                //klo benar maka muncul main activity sama bikin user shared preferences
+                    //klo benar maka muncul main activity sama bikin user shared preferences
                     val intent = Intent(this, MainActivity::class.java)
-                    this.startActivity(intent)
+                    startActivity(intent)
+                    finish() //biar gk bisa back lagi
+
             }
             else{
                 Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!",
