@@ -28,11 +28,11 @@ class WhoWeAreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWhoWeAreBinding.inflate(inflater, container, false)
-//        binding.btnLike.setOnClickListener(){
-//            var likeCount = binding.btnLike.text.toString().toInt()
-//            likeCount++
-//            binding.btnLike.text = likeCount.toString()
-//        }
+        binding.btnLike.setOnClickListener(){
+            var likeCount = binding.btnLike.text.toString().toInt()
+            likeCount++
+            binding.btnLike.text = likeCount.toString()
+        }
         return binding.root
 
 

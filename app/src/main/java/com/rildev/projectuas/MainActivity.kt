@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             //cabang yang di dalam kurung itu cabang list yang dideclare diatas
             if(binding.viewPager.currentItem==0){
                 var cabangFragmentList = WhatWePlayFragment.newInstance(cabangs)
-                //pake replace biar dia bs berubah scr dinamis
+//                //pake replace biar dia bs berubah scr dinamis
                 supportFragmentManager.beginTransaction().apply{
                     replace(R.id.container, cabangFragmentList) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
                     commit()
@@ -73,13 +73,13 @@ class MainActivity : AppCompatActivity() {
                     commit()
                 }
             }
-            else if(binding.viewPager.currentItem==2){
-                var siapaKita = WhoWeAreFragment.newInstance("a","b")
-                supportFragmentManager.beginTransaction().apply{
-                    replace(R.id.container, siapaKita) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
-                    commit()
-                }
-            }
+//            else if(binding.viewPager.currentItem==2){
+////                var siapaKita = WhoWeAreFragment.newInstance("a","b")
+////                supportFragmentManager.beginTransaction().apply{
+////                    replace(R.id.container, siapaKita) //yang mau dicantolin tuh event fragment list yang sdh dideclare di atas kiw kiw
+////                    commit()
+////                }
+//            }
             true
 
         }
