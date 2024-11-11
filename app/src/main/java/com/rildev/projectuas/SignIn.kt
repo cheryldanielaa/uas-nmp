@@ -1,6 +1,8 @@
 package com.rildev.projectuas
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,10 +18,32 @@ class SignIn : AppCompatActivity() {
         setContentView(binding.root)
 
         //baca list user
-        val listUser: ArrayList<User> = UserData.users
+        var listUser = UserData.users
 
         //baca inputan username dan password user
-        var usn = binding.txtUsername.text
-        var pass =binding.txtPassword.text
+        var usn = binding.txtUsername.text.toString()
+        var pass =binding.txtPassword.text.toString()
+
+        //cek apakah bisa login atau nggak
+        var statusLogin=false
+        binding.btnSubmit.setOnClickListener {
+            for (user in listUser) {
+                if (user.username == usn && user.password == pass) {
+                    statusLogin=true
+                    Toast.makeText(this, "Login berhasil", Toast.LENGTH_SHORT).show()
+                    break
+                }
+            }
+            if(statusLogin==true){
+                //klo benar maka muncul main activity sama bikin user shared preferences
+                    val intent = Intent(this, MainActivity::class.java)
+                    this.startActivity(intent)
+            }
+            else{
+                Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!",
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }
