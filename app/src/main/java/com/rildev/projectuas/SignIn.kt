@@ -35,7 +35,8 @@ class SignIn : AppCompatActivity() {
                 }
             }
             if(statusLogin==true){
-                    //klo benar maka muncul main activity sama bikin user shared preferences
+
+                //klo benar maka muncul main activity sama bikin user shared preferences
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish() //biar gk bisa back lagi
@@ -45,6 +46,12 @@ class SignIn : AppCompatActivity() {
                 Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!",
                     Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnSignUp.setOnClickListener {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+            finish() //biar gk bs ngeback
         }
 
     }

@@ -1,5 +1,6 @@
 package com.rildev.projectuas
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,14 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(binding.root)
+
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, SignIn::class.java)
+            startActivity(intent)
+            finish() //difinish jg biar klo dia ke sign in nda bisa keback
+        }
+
     }
+
 }

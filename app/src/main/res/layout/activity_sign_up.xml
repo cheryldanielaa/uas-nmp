@@ -113,8 +113,7 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/repeatP
-                assword"
+                android:id="@+id/repeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPassword"
@@ -143,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="Button" />
+                android:text="Back" />
 
             <Space
                 android:layout_width="wrap_content"
