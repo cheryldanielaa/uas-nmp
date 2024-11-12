@@ -1,6 +1,8 @@
 package com.rildev.projectuas
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +22,14 @@ class SignIn : AppCompatActivity() {
         //baca list user
         var listUser = UserData.users
 
+        //simpan login state disini?
+        var login_state = false //basicnya false
+
+        //buat sharedpreferencesnya disini
+        val sharedPreferences: SharedPreferences =
+            getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        login_state = sharedPreferences.getBoolean("LOGIN_STATE",
+            false) //basicnya false
 
         //cek apakah bisa login atau nggak
         binding.btnSubmit.setOnClickListener {
@@ -35,12 +45,16 @@ class SignIn : AppCompatActivity() {
                 }
             }
             if(statusLogin==true){
+                //klo true maka update shared preferencesnya
+                login_state=true //login statenya jadi true (buat simpen status loginnya)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("LOGIN_STATE", login_state)
+                editor.apply()
 
                 //klo benar maka muncul main activity sama bikin user shared preferences
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish() //biar gk bisa back lagi
-
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish() //biar gk bisa back lagi
             }
             else{
                 Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!",
@@ -54,5 +68,12 @@ class SignIn : AppCompatActivity() {
             finish() //biar gk bs ngeback
         }
 
+        //klo login statenya true, maka dia langsung ke main menu
+        if(login_state==true)
+        {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() //biar gk bs ngeback
+        }
     }
 }

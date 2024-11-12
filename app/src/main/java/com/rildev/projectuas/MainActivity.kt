@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     //What We Play dan teman-temannya itu Fragment List
     var cabangs=CabangData.cabangs //akses data dari cabang data
     var schedule: ArrayList<ScheduleBank> = ArrayList(ScheduleData.schedule.toList())
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //deklarasikan view binding
