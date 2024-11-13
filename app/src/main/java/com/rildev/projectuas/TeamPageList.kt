@@ -3,6 +3,7 @@ package com.rildev.projectuas
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,9 @@ class TeamPageList : AppCompatActivity() {
         var CABANG = "cabang"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         binding = ActivityTeamPageListBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -3,6 +3,7 @@ package com.rildev.projectuas
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -15,12 +16,16 @@ class MainActivity : AppCompatActivity() {
     //deklarasi semua list yang dipake buat fragment itu disini
     //deklarasikan list dari cabang yang ada
 
+
     //NOTES :
     //Basenya utk What We Play, Who We Are, sama Our Schedule itu di Main Activity
     //What We Play dan teman-temannya itu Fragment List
     var cabangs=CabangData.cabangs //akses data dari cabang data
     var schedule: ArrayList<ScheduleBank> = ArrayList(ScheduleData.schedule.toList())
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         //deklarasikan view binding
         binding = ActivityMainBinding.inflate(layoutInflater)

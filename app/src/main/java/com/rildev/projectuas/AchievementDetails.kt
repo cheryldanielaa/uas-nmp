@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.rildev.projectuas.databinding.ActivityAchievementDetailsBinding
 
 
@@ -17,6 +18,9 @@ class AchievementDetails : AppCompatActivity() {
     }
     private var  achievement:ArrayList<Achievement> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         binding = ActivityAchievementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)

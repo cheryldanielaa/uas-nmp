@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -17,6 +18,10 @@ class SignIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         setContentView(binding.root)
 
         //baca list user
@@ -26,10 +31,8 @@ class SignIn : AppCompatActivity() {
         var login_state = false //basicnya false
 
         //buat sharedpreferencesnya disini
-        val sharedPreferences: SharedPreferences =
-            getSharedPreferences("SETTING", Context.MODE_PRIVATE)
-        login_state = sharedPreferences.getBoolean("LOGIN_STATE",
-            false) //basicnya false
+        val sharedPreferences: SharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        login_state = sharedPreferences.getBoolean("LOGIN_STATE", false) //basicnya false
 
         //cek apakah bisa login atau nggak
         binding.btnSubmit.setOnClickListener {
@@ -44,7 +47,7 @@ class SignIn : AppCompatActivity() {
                     break
                 }
             }
-            if(statusLogin==true){
+            if(statusLogin == true){
                 //klo true maka update shared preferencesnya
                 login_state=true //login statenya jadi true (buat simpen status loginnya)
                 val editor = sharedPreferences.edit()
@@ -57,19 +60,18 @@ class SignIn : AppCompatActivity() {
                 finish() //biar gk bisa back lagi
             }
             else{
-                Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Login gagal. Username/Password yang Anda masukkan salah!", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
-            finish() //biar gk bs ngeback
+            //finish() //harusnya kalo gajadi sign up bisa balek ke sign in?
         }
 
         //klo login statenya true, maka dia langsung ke main menu
-        if(login_state==true)
+        if(login_state == true)
         {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

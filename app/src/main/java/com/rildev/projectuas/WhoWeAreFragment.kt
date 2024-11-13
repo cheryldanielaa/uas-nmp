@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
 import com.rildev.projectuas.databinding.FragmentWhoWeAreFragmentBinding
 
@@ -12,6 +13,9 @@ import com.rildev.projectuas.databinding.FragmentWhoWeAreFragmentBinding
 class WhoWeAreFragment : Fragment() {
     private lateinit var binding:FragmentWhoWeAreFragmentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
