@@ -32,9 +32,8 @@ class SignUp : AppCompatActivity() {
         binding.checkBox.isChecked = false
         binding.btnSubmit.isEnabled = false
 
-        // Tambahkan listener untuk checkbox di sini
+        //tiap kali checkbox di check, button submit enabled disabled
         binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            // Tombol submit diaktifkan atau dinonaktifkan berdasarkan status checkbox
             binding.btnSubmit.isEnabled = isChecked
         }
 
@@ -57,10 +56,17 @@ class SignUp : AppCompatActivity() {
             for (user in listUser) {
                 //cek apakah semua input nya kosong atau ga
                 if (firstName != "" && lastName != "" && username != "" && password != "") {
-                    //cek apakah username udah terdaftar atau belum & apakah password == repPassword
+                    //cek apakah username udah terdaftar atau belum
                     if (user.username != username) {
                         val newUser = User(firstName, lastName, username, password)
-                        UserData.users.add(newUser)
+
+                        //ubah tipe array UserData dari array ke MutableList
+                        //kenapa diubah? karena kalo array itu kita gabisa nambah data lewat code -> tapi kalo pake MutableList bisa
+                        val userList = UserData.users.toMutableList()
+                        userList.add(newUser)
+                        //ubah list ke ArrayList
+                        val arrayList: ArrayList<User> = ArrayList(userList)
+                        UserData.users = arrayList //kalo udah di add, ubah balik jadi arrayList
 
                         Toast.makeText(this, "Sign Up berhasil", Toast.LENGTH_SHORT).show()
 
