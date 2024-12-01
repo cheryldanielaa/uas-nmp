@@ -39,11 +39,12 @@
             app:endIconScaleType="centerInside">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/firstName"
+                android:id="@+id/txtFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:paddingEnd="20dp"
+                android:textColor="#181616"
                 tools:text="enter your first name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,10 +59,11 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/lastName"
+                android:id="@+id/txtLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:textColor="#181616"
                 tools:text="enter your last name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,10 +78,11 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/txtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
+                android:textColor="#181616"
                 tools:text="enter your username" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,15 +97,17 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPassword"
+                android:textColor="#181616"
                 tools:text="enter your password" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/repeatPasswordInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -113,10 +118,11 @@
             app:endIconMode="custom">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/repeatPassword"
+                android:id="@+id/txtRepeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPassword"
+                android:textColor="#181616"
                 tools:text="enter your password" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,6 +163,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:enabled="false"
                 android:text="Submit" />
         </LinearLayout>
 

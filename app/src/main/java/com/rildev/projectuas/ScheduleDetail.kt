@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.rildev.projectuas.databinding.ActivityScheduleDetailBinding
@@ -27,6 +28,9 @@ class ScheduleDetail : AppCompatActivity() {
     private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         binding = ActivityScheduleDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)

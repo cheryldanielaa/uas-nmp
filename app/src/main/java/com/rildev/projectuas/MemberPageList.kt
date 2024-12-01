@@ -2,6 +2,7 @@ package com.rildev.projectuas
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rildev.projectuas.databinding.ActivityMemberPageListBinding
 
@@ -15,6 +16,9 @@ class MemberPageList : AppCompatActivity() {
     private lateinit var binding: ActivityMemberPageListBinding
     private var member:ArrayList<MemberBank> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMemberPageListBinding.inflate(layoutInflater)
         setContentView(binding.root)

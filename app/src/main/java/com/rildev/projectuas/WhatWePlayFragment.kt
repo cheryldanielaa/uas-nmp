@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.ListFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
@@ -14,6 +15,7 @@ import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
 //yang dikirimkan
 
 private const val KEY_EVENTS="cabang lomba"
+
 //krn kita tampilin data di recycler view, jd gak pake list fragment, tp fragment biasa
 class WhatWePlayFragment : Fragment() {
     //What We Play ini menyimpan list dari cabang yang ada
@@ -21,9 +23,13 @@ class WhatWePlayFragment : Fragment() {
     //fungsinya klo di week 8 itu sama kayak EventListFragment
     //array kosongan utk menampung data yang dikirimkan dari main activity
     private var cabangs:ArrayList<Cabang> = ArrayList()
+
     //deklarasikan binding
     private lateinit var binding:FragmentWhatWePlayBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        //byebye night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         super.onCreate(savedInstanceState)
         arguments?.let {
             //terima cabang dari mainactivity trs disimpan di list kosong yang udah
