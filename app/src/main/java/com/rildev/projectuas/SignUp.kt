@@ -23,7 +23,7 @@ class SignUp : AppCompatActivity() {
             finish() //difinish jg biar klo dia ke sign in nda bisa keback
         }
         binding.btnSubmit.setOnClickListener {
-            val nama = binding.firstName.text.toString()
+            val nama = binding.txtFirstName.text.toString()
             Toast.makeText(this, nama, Toast.LENGTH_SHORT).show()
         }
     }
