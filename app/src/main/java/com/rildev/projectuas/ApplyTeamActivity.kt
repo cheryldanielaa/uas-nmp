@@ -15,4 +15,3 @@ class ApplyTeamActivity : AppCompatActivity() {
         setContentView(binding.root)
         }
     }
-}
