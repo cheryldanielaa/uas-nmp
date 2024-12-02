@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.rildev.projectuas.databinding.ActivityScheduleDetailBinding
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,6 +58,11 @@ class ScheduleDetail : AppCompatActivity() {
                 binding.txtNamaTeam.text = schedule.namaTeam.nama
                 binding.txtDeskripsiEvent.text = schedule.deskripsi
 
+                val imageUrl = schedule.gambar
+                val builder = Picasso.Builder(this)
+                builder.listener { picasso, uri, exception -> exception.printStackTrace() }
+                Picasso.get().load(imageUrl).into(binding.imgEvent)
+
                 // Hide the notify button if the event date has passed
                 if (isDateBeforeToday(tanggalDate)) {
                     binding.btnNotify.visibility = View.GONE
@@ -64,7 +70,15 @@ class ScheduleDetail : AppCompatActivity() {
 
                 // Set notification button functionality
                 binding.btnNotify.setOnClickListener {
-                    showNotificationDialog()
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Notification")
+                    builder.setMessage("Yey, masuk notifikasinya! ^.^")
+                    builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                    val dialog = builder.create()
+                    dialog.setOnShowListener {
+                        dialog.window?.decorView?.setBackgroundColor(Color.parseColor("#F0B5C9"))
+                    }
+                    dialog.show()
                 }
             },
             {
@@ -77,18 +91,6 @@ class ScheduleDetail : AppCompatActivity() {
             }
         }
         q.add(stringRequest)
-    }
-
-    private fun showNotificationDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Notification")
-        builder.setMessage("Yey, masuk notifikasinya! ^.^")
-        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-        val dialog = builder.create()
-        dialog.setOnShowListener {
-            dialog.window?.decorView?.setBackgroundColor(Color.parseColor("#F0B5C9"))
-        }
-        dialog.show()
     }
 
     private fun isDateBeforeToday(eventDate: Date?): Boolean {
