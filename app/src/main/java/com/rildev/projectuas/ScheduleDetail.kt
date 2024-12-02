@@ -2,112 +2,110 @@ package com.rildev.projectuas
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import com.rildev.projectuas.databinding.ActivityScheduleDetailBinding
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class ScheduleDetail : AppCompatActivity() {
     private lateinit var binding: ActivityScheduleDetailBinding
-    companion object
-    {
-        var SCHEDULE = "schedule detail"
-        var POSITION = "posisi"
+
+    companion object {
+        const val SCHEDULE_ID = "schedule_id"
     }
-    private var schedule:ArrayList<ScheduleBank> = ArrayList()
-    private var position: Int = 0
+
+    private var scheduleId: Int = 0
+    private lateinit var schedule: ScheduleBank
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
         super.onCreate(savedInstanceState)
         binding = ActivityScheduleDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //retrieve value dari object yang dikirimkan dari what we play yang dipilih
-        schedule =
-            intent.getParcelableArrayListExtra<ScheduleBank>(SCHEDULE) ?: ArrayList()
-        position = intent.getIntExtra(POSITION, 0)
+        scheduleId = intent.getIntExtra(SCHEDULE_ID, 0)
+        fetchScheduleDetails()
+    }
 
-        var tanggalEvent = schedule[position].tanggalEvent
-        var waktuEvent = schedule[position].waktuEvent
-        var namaEvent = schedule[position].namaEvent
-        var tempatEvent = schedule[position].tempatEvent
-        var cabangLomba = schedule[position].cabangLomba.namaCabang
-        var namaTim = schedule[position].tim.nama
-        var deskripsi = schedule[position].deskripsi
-        var gambar = schedule[position].gambarId
+    private fun fetchScheduleDetails() {
+        val url = "https://ubaya.xyz/native/160422026/project/scheduledetail.php"
+        val q = Volley.newRequestQueue(this)
 
-        //format 16-10-2024 menjadi 16 October 2024
-        val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-        var tanggalDate: Date? = null
-        try {
-            tanggalDate = inputFormat.parse(tanggalEvent)  //pastiin parsing berhasil
-        } catch (e: Exception) {
-            e.printStackTrace() //tangani parsing gagal
-        }
+        val stringRequest = object : StringRequest(Request.Method.POST, url,
+            {
+                schedule = Gson().fromJson(it, ScheduleBank::class.java)
 
-        val format = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
-        val tanggalPanjang = format.format(tanggalDate)
+                // Format the event date
+                val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+                val tanggalDate: Date? = inputFormat.parse(schedule.tanggalEvent)
+                val format = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
+                val tanggalPanjang = tanggalDate?.let { format.format(it) } ?: schedule.tanggalEvent
 
-        binding.txtNamaEvent.text = namaEvent
-        binding.txtTanggalEvent.text = tanggalPanjang + " - " + waktuEvent
-        binding.txtTempatEvent.text = tempatEvent
-        binding.txtNamaCabang.text = cabangLomba
-        binding.txtNamaTeam.text = namaTim
-        binding.txtDeskripsiEvent.text = deskripsi
-        binding.imgEvent.setImageResource(gambar)
+                binding.txtNamaEvent.text = schedule.namaEvent
+                binding.txtTanggalEvent.text = "$tanggalPanjang - ${schedule.waktuEvent}"
+                binding.txtTempatEvent.text = schedule.tempatEvent
+                binding.txtNamaCabang.text = schedule.cabangLomba.namaCabang
+                binding.txtNamaTeam.text = schedule.namaTeam.nama
+                binding.txtDeskripsiEvent.text = schedule.deskripsi
 
-        //reset komponen waktu pada Calendar menjadi 00:00:009
-        fun resetTime(calendar: Calendar) {
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            calendar.set(Calendar.MILLISECOND, 0)
-        }
+                // Hide the notify button if the event date has passed
+                if (isDateBeforeToday(tanggalDate)) {
+                    binding.btnNotify.visibility = View.GONE
+                }
 
-        //bandingin tanggal, tanpa waktu (jam, menit, detik, dll) biar tanggal hari ini juga ikut
-        fun isDateBeforeToday(eventDate: Date?): Boolean {
-            val calendarEvent = Calendar.getInstance()
-            calendarEvent.time = eventDate
-            resetTime(calendarEvent)
-
-            val today = Calendar.getInstance()
-            resetTime(today)
-
-            return calendarEvent.before(today)
-        }
-
-        if(isDateBeforeToday(tanggalDate)) {
-            binding.btnNotify.visibility = View.GONE
-        }
-
-        binding.btnNotify.setOnClickListener {
-            //buat dan tampilkan AlertDialog
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Notification")
-            builder.setMessage("yey udah masuk notifnya ^.^")
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss() //tutup dialog saat OK ditekan
+                // Set notification button functionality
+                binding.btnNotify.setOnClickListener {
+                    showNotificationDialog()
+                }
+            },
+            {
+                Log.e("apiresult", it.message.toString())
+            }) {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["id"] = scheduleId.toString()
+                return params
             }
-
-            //ganti warna dialog jadi pink
-            val dialog = builder.create()
-            dialog.setOnShowListener {
-                dialog.window?.decorView?.setBackgroundColor(Color.parseColor("#F0B5C9"))
-            }
-            dialog.show()
         }
+        q.add(stringRequest)
+    }
+
+    private fun showNotificationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Notification")
+        builder.setMessage("Yey, masuk notifikasinya! ^.^")
+        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+        val dialog = builder.create()
+        dialog.setOnShowListener {
+            dialog.window?.decorView?.setBackgroundColor(Color.parseColor("#F0B5C9"))
+        }
+        dialog.show()
+    }
+
+    private fun isDateBeforeToday(eventDate: Date?): Boolean {
+        val calendarEvent = Calendar.getInstance()
+        eventDate?.let { calendarEvent.time = it }
+        resetTime(calendarEvent)
+
+        val today = Calendar.getInstance()
+        resetTime(today)
+
+        return calendarEvent.before(today)
+    }
+
+    private fun resetTime(calendar: Calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
     }
 }

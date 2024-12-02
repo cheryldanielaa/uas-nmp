@@ -9,8 +9,10 @@ import kotlinx.parcelize.Parcelize
 
 //buat simpen constructor dan data members dari cabang HEHE
 data class Cabang (
+    var id: Int,
     var namaCabang:String,
     var logo_gambar:Int,
-    var desc:String): Parcelable {
-    override fun toString()=namaCabang //yang direturn apa aja{
+    var desc:String): Parcelable
+{
+    override fun toString() = namaCabang //yang direturn apa aja{
 }

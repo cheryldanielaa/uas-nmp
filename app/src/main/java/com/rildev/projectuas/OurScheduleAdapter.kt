@@ -22,7 +22,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
     init {
         //urutkan list ascending tanggal event
         val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
-        scheduleValid = ScheduleData.schedule.sortedBy { schedule ->
+        scheduleValid = schedule.sortedBy { schedule ->
             inputFormat.parse(schedule.tanggalEvent)
         }
 //        }.filter {
@@ -92,7 +92,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
         val bulanEvent = dateParts[1].uppercase()
 
         val cabang = scheduleValid[position].cabangLomba.namaCabang
-        val tim = scheduleValid[position].tim.nama
+        val tim = scheduleValid[position].namaTeam.nama
 
         holder.binding.txtNamaEventSchedule.text = scheduleValid[position].namaEvent
         holder.binding.txtTanggalEvent.text = tanggalEvent
@@ -103,8 +103,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
             val activity = holder.itemView.context as Activity
             var scheduleValid = scheduleValid.toMutableList()
             val intent = Intent(activity, ScheduleDetail::class.java)
-            intent.putParcelableArrayListExtra(ScheduleDetail.SCHEDULE, ArrayList(scheduleValid))
-            intent.putExtra(ScheduleDetail.POSITION, position)
+            intent.putExtra(ScheduleDetail.SCHEDULE_ID, position)
             activity.startActivity(intent)
         }
     }
