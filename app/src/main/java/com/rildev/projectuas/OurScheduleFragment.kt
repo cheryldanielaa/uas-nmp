@@ -15,8 +15,6 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rildev.projectuas.databinding.FragmentOurScheduleBinding
-import com.rildev.projectuas.databinding.FragmentWhatWePlayBinding
-import org.json.JSONArray
 import org.json.JSONObject
 
 private const val KEY_EVENTS="schedule"
@@ -34,7 +32,6 @@ class OurScheduleFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
         super.onCreate(savedInstanceState)
     }
 
@@ -46,7 +43,6 @@ class OurScheduleFragment : Fragment() {
         binding = FragmentOurScheduleBinding.inflate(inflater, container, false)
         binding.recSchedule.layoutManager = LinearLayoutManager(requireContext())
         binding.recSchedule.setHasFixedSize(true) //utk memastikan setiap card pny ukuran yg sama
-        //kirimin parameter listschedule ke OurScheduleAdapter
         isiSchedules()
         //Inflate the layout for this fragment
         return binding.root
@@ -76,7 +72,10 @@ class OurScheduleFragment : Fragment() {
                     val data = obj.getJSONArray("data")
 
                     //KALO PAKE GSON
+                    //ini pake object karna mau ngambil 1 class ScheduleBank
                     val sType = object : TypeToken<List<ScheduleBank>>() {}.type
+                    //deseralize gson string into ArrayList ScheduleBank
+                    //fromJson() -> parameter 1: data yg mau dijadiin ArrayList || parameter 2: Type of object yang mau di-deseralize into
                     val schedules: ArrayList<ScheduleBank> = Gson().fromJson(
                         data.toString(),
                         sType
