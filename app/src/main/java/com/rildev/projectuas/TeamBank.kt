@@ -4,9 +4,11 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TeamBank (var id: Int, var nama:String,
-                     var cabang:Cabang):Parcelable {
+data class TeamBank (var idteam:Int,
+                     var idgame:Int,
+                     var name:String
+                     ):Parcelable {
     override fun toString(): String {
-        return nama
+        return name
     }
 }

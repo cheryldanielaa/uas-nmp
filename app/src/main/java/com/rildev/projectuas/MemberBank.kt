@@ -4,8 +4,11 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MemberBank (var nickame:String,
-                       var avatarId:Int,
+data class MemberBank (var idteam:Int,
+                       var idmember:Int,
+                       var idgame:Int,
                        var role:String,
-                       var teamName:TeamBank) :Parcelable   {
+                       var nickname: String,
+                       var gambarmember:String,
+                        var teamname:String) :Parcelable   {
 }
