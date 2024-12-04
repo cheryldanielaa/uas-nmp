@@ -91,8 +91,8 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
         val tanggalEvent = dateParts[0]
         val bulanEvent = dateParts[1].uppercase()
 
-        val cabang = scheduleValid[position].cabangLomba.namaCabang
-        val tim = scheduleValid[position].namaTeam.nama
+        val cabang = scheduleValid[position].namaCabang
+        val tim = scheduleValid[position].teamName
 
         holder.binding.txtNamaEventSchedule.text = scheduleValid[position].namaEvent
         holder.binding.txtTanggalEvent.text = tanggalEvent
@@ -103,7 +103,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
             val activity = holder.itemView.context as Activity
             var scheduleValid = scheduleValid.toMutableList()
             val intent = Intent(activity, ScheduleDetail::class.java)
-            intent.putExtra(ScheduleDetail.SCHEDULE_ID, position)
+            intent.putExtra(ScheduleDetail.SCHEDULE_ID, scheduleValid[position].eventId)
             activity.startActivity(intent)
         }
     }

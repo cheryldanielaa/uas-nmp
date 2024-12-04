@@ -33,6 +33,7 @@ class OurScheduleFragment : Fragment() {
         //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
+        isiSchedules()
     }
 
     //tampilin design fragmentnya

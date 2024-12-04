@@ -54,12 +54,14 @@ class ScheduleDetail : AppCompatActivity() {
                     //data --> ini ambil structur di JSON yaitu []data
                     //karena JSON bentuknya object, sedangkan data bentuknya array, maka convert object jadi array
                     val data = obj.getJSONArray("data")
-
+                    val schedJson = data.getJSONObject(0)
+                    //untuk mendapatkan object user yang lagi login
+                    val sType = object : TypeToken<ScheduleBank>() {}.type
                     //param ke 2 -> specifies the target class into which Gson should map the JSON data.
                     //lgsg pke ScheduleBank, ga pake sType Object karna ak cmn mau ngambil 1 row dari ScheduleBank / 1 Object JSON
                     //Gson will map each key in the JSON to the corresponding property in the ScheduleBank class.
                     //thankyou gson luv <3
-                    schedule = Gson().fromJson(data.toString(), ScheduleBank::class.java)
+                    schedule = Gson().fromJson(schedJson.toString(), sType)
 
                     // Format the event date
                     val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
@@ -70,11 +72,10 @@ class ScheduleDetail : AppCompatActivity() {
                     binding.txtNamaEvent.text = schedule.namaEvent
                     binding.txtTanggalEvent.text = "$tanggalPanjang - ${schedule.waktuEvent}"
                     binding.txtTempatEvent.text = schedule.tempatEvent
-                    binding.txtNamaCabang.text = schedule.cabangLomba.namaCabang
-                    binding.txtNamaTeam.text = schedule.namaTeam.nama
-                    binding.txtDeskripsiEvent.text = schedule.deskripsi
-
-                    val imageUrl = schedule.gambar
+                    binding.txtNamaCabang.text = schedule.namaCabang
+                    binding.txtNamaTeam.text = schedule.teamName
+                    binding.txtDeskripsiEvent.text = schedule.deskripsiLomba
+                    val imageUrl = schedule.gambarLomba
                     val builder = Picasso.Builder(this)
                     builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(imageUrl).into(binding.imgEvent)

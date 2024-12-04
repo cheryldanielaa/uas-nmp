@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
     //NOTES :
     //Basenya utk What We Play, Who We Are, sama Our Schedule itu di Main Activity
     //What We Play dan teman-temannya itu Fragment List
-    var cabangs=CabangData.cabangs //akses data dari cabang data
-    var schedule: ArrayList<ScheduleBank> = ArrayList(ScheduleData.schedule.toList())
     override fun onCreate(savedInstanceState: Bundle?) {
         //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -38,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         //klo mau kirimin value masukin disini, jangan lewat begintransaction karena fungsinya sama aja
         //klo kamu pake begin transaction jd numpuk gak jelas, trs dia gak bisa nggeser
-        fragments.add(WhatWePlayFragment.newInstance(cabangs))
-        fragments.add(OurScheduleFragment.newInstance(schedule))
-        fragments.add(WhoWeAreFragment.newInstance("a", "b"))
+        fragments.add(WhatWePlayFragment())
+        fragments.add(OurScheduleFragment())
+        fragments.add(WhoWeAreFragment())
 
         binding.viewPager.adapter = MyAdapter(this, fragments) //hubungin sm
 
