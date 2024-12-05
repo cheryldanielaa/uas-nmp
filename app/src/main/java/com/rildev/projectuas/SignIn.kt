@@ -66,6 +66,7 @@ class SignIn : AppCompatActivity() {
                             val data = obj.getJSONArray("data")
                             //karena outputnya pasti cuman satu maka ambil index ke -
                             val userJson = data.getJSONObject(0)
+                            val idmember = userJson.getInt("idmember")
                             //untuk mendapatkan object user yang lagi login
                             val sType = object : TypeToken<User>() {}.type
                             //baca data user dari json
@@ -78,10 +79,11 @@ class SignIn : AppCompatActivity() {
                             login_state = true //login statenya jadi true (buat simpen status loginnya)
                             val editor = sharedPreferences.edit()
                             editor.putBoolean("LOGIN_STATE", login_state)
+                            editor.putInt("user_id", idmember)
                             editor.apply()
 
                             //klo benar maka muncul main activity sama bikin user shared preferences
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this, ApplyTeamActivity::class.java)
                             startActivity(intent)
                             finish() //biar gk bisa back lagi
                         } else {
@@ -120,6 +122,12 @@ class SignIn : AppCompatActivity() {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
             finish() //biar gk bs ngeback
+        }
+        binding.buttonApply.setOnClickListener{
+            val intent = Intent(this, ApplyTeamActivity::class.java)
+            startActivity(intent)
+            finish()
+
         }
     }
 }
