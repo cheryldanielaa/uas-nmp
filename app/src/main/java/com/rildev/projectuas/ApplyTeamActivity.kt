@@ -1,5 +1,6 @@
 package com.rildev.projectuas
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -154,7 +155,8 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Toast.makeText(this, "Description tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val userId = intent.getIntExtra("user_id", -1)
+            val sharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+            val userId = sharedPreferences.getInt("user_id", 0)
             Log.d("INI ID MEMBER", userId.toString())
 
             if(userId!=-1){
