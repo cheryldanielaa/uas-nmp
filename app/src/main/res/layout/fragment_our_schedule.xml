@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="@+id/menuBar" />
 
         <ImageView
-            android:id="@+id/gbr"
+            android:id="@+id/imgLogo"
             app:layout_constraintEnd_toEndOf="@+id/menuBar"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/profile"

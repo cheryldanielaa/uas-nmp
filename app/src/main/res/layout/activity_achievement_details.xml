@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/menuBar" />
 
     <ImageView
-        android:id="@+id/gbr"
+        android:id="@+id/imgLogo"
         android:layout_width="41dp"
         android:layout_height="34dp"
         android:layout_marginTop="16dp"
