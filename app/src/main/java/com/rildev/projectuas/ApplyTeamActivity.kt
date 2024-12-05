@@ -154,41 +154,50 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Toast.makeText(this, "Description tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            val userId = intent.getIntExtra("user_id", -1)
+            Log.d("INI ID MEMBER", userId.toString())
 
-            val queueApply=Volley.newRequestQueue(this)
-            val urlApply="https://ubaya.xyz/native/160422026/project/applyTeam.php"
-            val stringRequestTim=object : StringRequest(
-                Request.Method.POST,
-                urlApply,
-                //klo berhasil
-                Response.Listener
-                {
-                    //baca data dari json
+            if(userId!=-1){
+                val queueApply=Volley.newRequestQueue(this)
+                val urlApply="https://ubaya.xyz/native/160422026/project/applyTeam.php"
+                val stringRequestTim=object : StringRequest(
+                    Request.Method.POST,
+                    urlApply,
+                    //klo berhasil
+                    Response.Listener
+                    {
+                        //baca data dari json
 
-                    val objApply=JSONObject(it)
-                    //klo resultnya OK
-                    if (objApply.getString("result") == "OK") {
-                        Toast.makeText(this, "Apply team berhasil", Toast.LENGTH_SHORT).show()
+                        val objApply=JSONObject(it)
+                        //klo resultnya OK
+                        if (objApply.getString("result") == "OK") {
+                            Toast.makeText(this, "Apply team berhasil", Toast.LENGTH_SHORT).show()
 
-                    } else if (objApply.getString("result") == "ERROR") {
-                        //baca data dari json mesagenya apa
-                        val msgTim=objApply.getString("message")
-                        //tampilin di toast pesannya apa
-                        Toast.makeText(this@ApplyTeamActivity, msgTim, Toast.LENGTH_SHORT).show()
+                        } else if (objApply.getString("result") == "ERROR") {
+                            //baca data dari json mesagenya apa
+                            val msgTim=objApply.getString("message")
+                            //tampilin di toast pesannya apa
+                            Toast.makeText(this@ApplyTeamActivity, msgTim, Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    Response.ErrorListener {
+                        Log.d("apiresult", it.message.toString())
+                    }) {
+                    override fun getParams(): MutableMap<String, String> {
+                        val params=HashMap<String, String>()
+                        params["idgame"]=selectedGameID.toString() // Kirim idGame sebagai parameter
+                        params["idteam"]=selectedTeamID.toString()
+                        params["description"]=desc
+                        return params
                     }
-                },
-                Response.ErrorListener {
-                    Log.d("apiresult", it.message.toString())
-                }) {
-                override fun getParams(): MutableMap<String, String> {
-                    val params=HashMap<String, String>()
-                    params["idgame"]=selectedGameID.toString() // Kirim idGame sebagai parameter
-                    params["idteam"]=selectedTeamID.toString()
-                    params["description"]=desc
-                    return params
                 }
+                queueApply.add(stringRequestTim)
             }
-            queueApply.add(stringRequestTim)
+            else{
+                Toast.makeText(this, "ID member tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
         }
     }
 }
