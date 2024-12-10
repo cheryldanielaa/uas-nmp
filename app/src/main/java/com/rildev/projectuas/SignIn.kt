@@ -83,7 +83,7 @@ class SignIn : AppCompatActivity() {
                             editor.apply()
 
                             //klo benar maka muncul main activity sama bikin user shared preferences
-                            val intent = Intent(this, ApplyTeamActivity::class.java)
+                            val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             finish() //biar gk bisa back lagi
                         } else {
@@ -123,11 +123,11 @@ class SignIn : AppCompatActivity() {
             startActivity(intent)
             finish() //biar gk bs ngeback
         }
+
         binding.buttonApply.setOnClickListener{
             val intent = Intent(this, ApplyTeamActivity::class.java)
             startActivity(intent)
             finish()
-
         }
     }
 }

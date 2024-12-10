@@ -21,15 +21,15 @@
             android:exported="false" />
         <activity
             android:name=".SignUp"
+            android:exported="true"/>
+        <activity
+            android:name=".SignIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SignIn"
-            android:exported="false" />
         <activity
             android:name=".ScheduleDetail"
             android:exported="false" />

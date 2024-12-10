@@ -72,7 +72,6 @@ class WhoWeAreFragment : Fragment() {
 
         binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
         binding.btnLike.setOnClickListener {
-
             val q = Volley.newRequestQueue(activity)
             val url = "https://ubaya.xyz/native/160422026/project/set_likes.php"
 
@@ -146,5 +145,4 @@ class WhoWeAreFragment : Fragment() {
             })
         q.add(stringRequest)
     }
-
 }

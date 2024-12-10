@@ -50,7 +50,6 @@ class ApplyTeamActivity : AppCompatActivity() {
                         val nameGame=dataArray.getJSONObject(i).getString("name")
 //                        Log.d("micheleGame", nameGame)
                         listGame.add(Pair(idGame, nameGame))
-
                     }
                     val adapterGem=ArrayAdapter(
                         this,
@@ -69,7 +68,6 @@ class ApplyTeamActivity : AppCompatActivity() {
             Response.ErrorListener {
                 Log.d("apiresult", it.message.toString())
             }) {
-
         }
         qGem.add(stringRequestGem)
         binding.spinnerGame.onItemSelectedListener=object : AdapterView.OnItemSelectedListener {
@@ -102,7 +100,6 @@ class ApplyTeamActivity : AppCompatActivity() {
                                 idTeam=dataArrayTim.getJSONObject(i).getInt("idteam")
                                 val nameTeam=dataArrayTim.getJSONObject(i).getString("name")
                                 listTeam.add(Pair(idTeam, nameTeam))
-
                             }
                             val adapterTim=ArrayAdapter(
                                 this@ApplyTeamActivity,
@@ -138,9 +135,7 @@ class ApplyTeamActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
-
         }
         binding.btnApply.setOnClickListener {
             val selectedGamePosition=binding.spinnerGame.selectedItemPosition
@@ -199,7 +194,6 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Toast.makeText(this, "ID member tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
         }
     }
 }
