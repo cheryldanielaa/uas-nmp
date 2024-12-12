@@ -30,6 +30,7 @@ class MemberPageList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMemberPageListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         //tampung member yang udh difilter
         member= (intent.getParcelableArrayListExtra<MemberBank>(LIST_MEMBER)?: ArrayList()) as ArrayList<MemberBank>
         var memberAdapter = MemberAdapter(member)

@@ -53,7 +53,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txtNamaEventSchedule"
+                android:id="@+id/txtCabang"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -63,7 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtNamaCabangTeam"
+                android:id="@+id/txtStatus"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
