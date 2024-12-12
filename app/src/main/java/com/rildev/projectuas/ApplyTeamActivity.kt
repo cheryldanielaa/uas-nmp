@@ -50,6 +50,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                         val nameGame=dataArray.getJSONObject(i).getString("name")
 //                        Log.d("micheleGame", nameGame)
                         listGame.add(Pair(idGame, nameGame))
+
                     }
                     val adapterGem=ArrayAdapter(
                         this,
@@ -68,6 +69,7 @@ class ApplyTeamActivity : AppCompatActivity() {
             Response.ErrorListener {
                 Log.d("apiresult", it.message.toString())
             }) {
+
         }
         qGem.add(stringRequestGem)
         binding.spinnerGame.onItemSelectedListener=object : AdapterView.OnItemSelectedListener {
@@ -100,6 +102,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                                 idTeam=dataArrayTim.getJSONObject(i).getInt("idteam")
                                 val nameTeam=dataArrayTim.getJSONObject(i).getString("name")
                                 listTeam.add(Pair(idTeam, nameTeam))
+
                             }
                             val adapterTim=ArrayAdapter(
                                 this@ApplyTeamActivity,
@@ -135,7 +138,9 @@ class ApplyTeamActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
+
             }
+
         }
         binding.btnApply.setOnClickListener {
             val selectedGamePosition=binding.spinnerGame.selectedItemPosition
@@ -151,12 +156,12 @@ class ApplyTeamActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val sharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
-            val userId = sharedPreferences.getInt("user_id", 0)
+            val userId = sharedPreferences.getInt("user_id", 1)
             Log.d("INI ID MEMBER", userId.toString())
 
             if(userId!=-1){
                 val queueApply=Volley.newRequestQueue(this)
-                val urlApply="https://ubaya.xyz/native/160422026/project/applyTeam.php"
+                val urlApply="https://ubaya.xyz/native/160422026/project/insertproposal.php"
                 val stringRequestTim=object : StringRequest(
                     Request.Method.POST,
                     urlApply,
@@ -182,9 +187,9 @@ class ApplyTeamActivity : AppCompatActivity() {
                     }) {
                     override fun getParams(): MutableMap<String, String> {
                         val params=HashMap<String, String>()
-                        params["idgame"]=selectedGameID.toString() // Kirim idGame sebagai parameter
                         params["idteam"]=selectedTeamID.toString()
                         params["description"]=desc
+                        params["idmember"]=userId.toString()
                         return params
                     }
                 }
@@ -194,6 +199,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Toast.makeText(this, "ID member tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
         }
     }
 }
