@@ -84,7 +84,7 @@
                     android:layout_height="205dp"
                     android:layout_marginEnd="2dp"
                     android:background="#FFFFFF"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/img" />
 
                 <TextView

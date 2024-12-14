@@ -23,7 +23,7 @@
             android:name=".SignUp"
             android:exported="true"/>
         <activity
-            android:name=".ProposalListActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             android:name=".ScheduleDetail"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ProposalListActivity"
             android:exported="true" />
         <activity
             android:name=".AchievementDetails"

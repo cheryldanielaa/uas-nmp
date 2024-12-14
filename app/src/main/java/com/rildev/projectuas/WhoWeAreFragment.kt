@@ -48,7 +48,7 @@ class WhoWeAreFragment : Fragment() {
                     binding.txtDescription.text = first.description
 
                     val imageUrl = first.photo
-                    val builder = Picasso.Builder(requireContext())
+                    val builder = Picasso.Builder(binding.root.context)
                     builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(imageUrl).into(binding.imgLogo)
 

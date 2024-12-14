@@ -94,10 +94,10 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
         val cabang = scheduleValid[position].namaCabang
         val tim = scheduleValid[position].teamName
 
-        holder.binding.txtNamaEventSchedule.text = scheduleValid[position].namaEvent
+        holder.binding.txtCabang.text = scheduleValid[position].namaEvent
         holder.binding.txtTanggalEvent.text = tanggalEvent
         holder.binding.txtBulanEvent.text = bulanEvent
-        holder.binding.txtNamaCabangTeam.text = cabang + " - " + tim
+        holder.binding.txtStatus.text = cabang + " - " + tim
 
         holder.binding.cardSchedule.setOnClickListener {
             val activity = holder.itemView.context as Activity
