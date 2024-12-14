@@ -137,10 +137,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.itemSignOut -> {
-                    // hapus sharedPreferences
+                    //hapus sharedPreferences
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("LOGIN_STATE", false)
-                    editor.clear()
                     editor.apply()
 
                     //hbs signout, buka signin
