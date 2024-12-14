@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menuTop" >
+        <item
+            android:id="@+id/itemApplyTeam"
+            android:title="Apply Team" />
+    </group>
+    <group android:id="@+id/menuBottom" >
+        <item
+            android:id="@+id/itemSignOut"
+            android:title="Sign Out" />
+    </group>
+</menu>
