@@ -75,6 +75,7 @@ class OurScheduleFragment : Fragment() {
                     //KALO PAKE GSON
                     //ini pake object karna mau ngambil 1 class ScheduleBank
                     val sType = object : TypeToken<List<ScheduleBank>>() {}.type
+
                     //deseralize gson string into ArrayList ScheduleBank
                     //fromJson() -> parameter 1: data yg mau dijadiin ArrayList || parameter 2: Type of object yang mau di-deseralize into
                     val schedules: ArrayList<ScheduleBank> = Gson().fromJson(

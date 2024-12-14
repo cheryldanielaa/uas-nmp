@@ -48,6 +48,7 @@ class ScheduleDetail : AppCompatActivity() {
             url,
             {
                 val obj = JSONObject(it)
+
                 //check for result key. If value is OK, then proceed
                 //cara panggil obj pake getString
                 if (obj.getString("result") == "OK") {
@@ -55,10 +56,11 @@ class ScheduleDetail : AppCompatActivity() {
                     //karena JSON bentuknya object, sedangkan data bentuknya array, maka convert object jadi array
                     val data = obj.getJSONArray("data")
                     val schedJson = data.getJSONObject(0)
+
                     //untuk mendapatkan object user yang lagi login
                     val sType = object : TypeToken<ScheduleBank>() {}.type
+
                     //param ke 2 -> specifies the target class into which Gson should map the JSON data.
-                    //lgsg pke ScheduleBank, ga pake sType Object karna ak cmn mau ngambil 1 row dari ScheduleBank / 1 Object JSON
                     //Gson will map each key in the JSON to the corresponding property in the ScheduleBank class.
                     //thankyou gson luv <3
                     schedule = Gson().fromJson(schedJson.toString(), sType)

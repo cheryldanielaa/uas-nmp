@@ -10,5 +10,5 @@ data class MemberBank (var idteam:Int,
                        var role:String,
                        var nickname: String,
                        var gambarmember:String,
-                        var teamname:String) :Parcelable   {
+                       var teamname:String) :Parcelable   {
 }

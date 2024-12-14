@@ -33,7 +33,6 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
             LayoutInflater.
             from(parent.context),parent,false)
         return CabangViewHolder(binding) //ni buat cardnya
-
     }
 
     override fun getItemCount(): Int {
@@ -45,11 +44,12 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
     {
         //ini code buat apa yang mau ditampilin di setiap card
         val urlGambar = cabangs[position].gambar; //url gambar
+
         //gunakan picasso untuk nampilin gambar
         val builder = Picasso.Builder(holder.itemView.context)
-        builder.listener { picasso, uri, exception ->
-            exception.printStackTrace() }
+        builder.listener { picasso, uri, exception -> exception.printStackTrace() }
         Picasso.get().load(urlGambar).into(holder.binding.logoCabang)
+
         with(holder.binding) { //tampilin nama cabang dan descriptionnya apa
             txtNamaCabang.text = cabangs[position].name
             txtGameDesc.text = cabangs[position].description
@@ -139,5 +139,5 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
                 q.add(stringRequest)
             }
         }
-        }
     }
+}

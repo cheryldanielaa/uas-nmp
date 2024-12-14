@@ -16,15 +16,23 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.rildev.projectuas.databinding.ActivityMainBinding
+import com.rildev.projectuas.databinding.DrawerHeaderBinding
 import com.rildev.projectuas.databinding.DrawerLayoutBinding
+import com.squareup.picasso.Picasso
+import org.json.JSONObject
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: DrawerLayoutBinding
     //deklarasi semua list yang dipake buat fragment itu disini
     //deklarasikan list dari cabang yang ada
-
 
     //NOTES :
     //Basenya utk What We Play, Who We Are, sama Our Schedule itu di Main Activity
@@ -34,6 +42,18 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         super.onCreate(savedInstanceState)
+
+        val sharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
+        val loginState = sharedPreferences.getBoolean("LOGIN_STATE", false)
+
+        //meskipun udh hapus sharedPreferences di signout, ttp hrs checking lg loginState apa biar ga lgsg msk mainActivity otomatis
+        if (!loginState) {
+            val intent = Intent(this, SignIn::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         //deklarasikan view binding
         //karena dia pake drawer maka bindingnya jadi di drawerlayout
         binding = DrawerLayoutBinding.inflate(layoutInflater)
@@ -44,18 +64,22 @@ class MainActivity : AppCompatActivity() {
 
         //tambahin hamburger wow
         supportActionBar?.setDisplayHomeAsUpEnabled(false); //krn mau pke hamburger icon buat ke navbar makanya set false
+
         //buat hubungin drawer ke playlist detailnya
         var drawerToggle = ActionBarDrawerToggle(
             this, binding.drawerLayout,
             binding.mainActivity.menuToolbar, R.string.app_name, R.string.app_name
         )
+
+        //biar nama app e ga kluar sbelah e-sport T.T
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         drawerToggle.isDrawerIndicatorEnabled = true
         drawerToggle.syncState()
 
-        //atur viewpager, masukin what we play ke dalem list, biar nnti dia
-        //keintegrasi trs bs digeser"
+        //atur viewpager, masukin what we play ke dalem list, biar nnti dia keintegrasi trs bs digeser"
         val fragments: ArrayList<Fragment> = ArrayList()
-        //urutan array lis ini nentuin urutan fragmentnya yg pertama mana, kedua mana
+        //urutan array list ini nentuin urutan fragmentnya yg pertama mana, kedua mana
 
         //klo mau kirimin value masukin disini, jangan lewat begintransaction karena fungsinya sama aja
         //klo kamu pake begin transaction jd numpuk gak jelas, trs dia gak bisa nggeser
@@ -102,6 +126,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
         //atur buat apa yang terjadi klo apply team dan sign out diklik
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -112,12 +137,60 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.itemSignOut -> {
-                    //GAK BISA SIGN OUT, SHARED PREFERENCES GAK KEHAPUS SELAMANYA
-                    Toast.makeText(this,"sedihhh",Toast.LENGTH_SHORT).show()
+                    // hapus sharedPreferences
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("LOGIN_STATE", false)
+                    editor.clear()
+                    editor.apply()
+
+                    //hbs signout, buka signin
+                    val intent = Intent(this, SignIn::class.java)
+                    startActivity(intent)
+                    finish()
+
+                    Toast.makeText(this,"Berhasil Sign Out uhuy",Toast.LENGTH_SHORT).show()
                 }
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
+        //tampilin Welcome, Andrew Ng anjai
+        var fullName = sharedPreferences.getString("user_full_name", "User") //kalo error kluarin "User"
+        fullName = fullName?.uppercase()
+
+        val headerBinding = DrawerHeaderBinding.bind(binding.navView.getHeaderView(0))
+        headerBinding.txtNamaPengguna.text = "Welcome, $fullName"
+
+        val url = "https://ubaya.xyz/native/160422026/project/aboutus.php"
+        val q = Volley.newRequestQueue(this)
+
+        //objek StringRequest punya 4 parameter -> 1. request method || 2. url || 3. listener kalo sukses -> if server status OK || 4. listener kalo error
+        var stringRequest = StringRequest(
+            Request.Method.POST,
+            url,
+            {
+                Log.d("apiresult", it) //it contains JSON string from API
+                val obj = JSONObject(it)
+                if (obj.getString("result") == "OK") {
+                    val data = obj.getJSONArray("data")
+
+                    val sType = object : TypeToken<List<AboutUs>>() {}.type
+                    val aboutUs: List<AboutUs> = Gson().fromJson(data.toString(), sType)
+
+                    val first = aboutUs[0]
+
+                    val imageUrl = first.photo
+                    val builder = Picasso.Builder(binding.root.context)
+                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
+                    Picasso.get().load(imageUrl).into(headerBinding.imgLogoApp)
+
+                    Log.d("cekisiarray", aboutUs.toString())
+                }
+            },
+            {
+                Log.e("apiresult", it.message.toString())
+            })
+        q.add(stringRequest)
     }
 }

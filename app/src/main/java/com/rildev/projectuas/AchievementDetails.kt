@@ -41,16 +41,20 @@ class AchievementDetails : AppCompatActivity() {
         //lakuin volley buat ambil bg cabang gamenya
         //sekarang panggil volley buat ngeset gambar biar sesuai hehe
         val idGame = achievement[0].idgame //ambil idgame krn pasti sama jd perwakilan index 0 aja
+
         //jalanin query pake volley
         val q = Volley.newRequestQueue(this) //krn dia activity
+
         //masukin link ubaya xyz
         val url = "https://ubaya.xyz/native/160422026/project/carigame.php"
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
+
             //klo berhasil
             Response.Listener {
                 //baca data dari json
                 val obj = JSONObject(it)
+
                 //klo resultnya OK
                 if (obj.getString("result") == "OK") {
                     //klo diliat dari json viewer, objek besarnya namanya data
@@ -65,8 +69,7 @@ class AchievementDetails : AppCompatActivity() {
                     val urlGambar = selectedGame.gambar; //url gambar
                     //gunakan picasso untuk nampilin gambar
                     val builder = Picasso.Builder(this) //pake this krn di activity
-                    builder.listener { picasso, uri, exception ->
-                        exception.printStackTrace() }
+                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(urlGambar).into(binding.gambarLogo) //diload dimana
 
                     binding.txtNama.text = selectedGame.name
@@ -89,6 +92,7 @@ class AchievementDetails : AppCompatActivity() {
         val years = achievement.map { it.year } //it.year >> ambil komponen year dr array achievement
             .distinct()  // Hanya ambil yang unik
             .sorted()    // Urutkan secara ascending
+
         // Tambahkan "All" di bagian atas
         val yearsWithAll = listOf("All") + years.map { it.toString() } //val yearsnya smua diubah jd tostring
         val adapter = ArrayAdapter(
@@ -112,12 +116,15 @@ class AchievementDetails : AppCompatActivity() {
                 val selectedYear = parent.getItemAtPosition(position).toString()
                 Log.d("year",selectedYear.toString())
                 if(selectedYear!="All"){
+
                     //harus pake @achievement details krn menunjukkan thisnya siapa
                     val q = Volley.newRequestQueue(this@AchievementDetails)
+
                     //masukin link ubaya xyz
                     val url = "https://ubaya.xyz/native/160422026/project/getachievementyear.php"
                     val stringRequest = object : StringRequest(
                         Request.Method.POST, url,
+
                         //klo berhasil
                         Response.Listener {
                             //baca data dari json
@@ -172,11 +179,9 @@ class AchievementDetails : AppCompatActivity() {
                         text+= "$i. $desc ($tahun) - $namatim\n"
                     }
                     binding.txtAchievement.text = text
-
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
         })
     }

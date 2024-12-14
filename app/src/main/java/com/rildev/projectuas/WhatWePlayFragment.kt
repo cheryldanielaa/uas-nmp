@@ -55,8 +55,6 @@ class WhatWePlayFragment : Fragment() {
                 //apiresult itu kek km search di logcat buat baca pesannya
             })
         q.add(stringRequest) //fungsinya utk print message di logcat buat debugging
-
-
     }
 
     override fun onCreateView(

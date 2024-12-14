@@ -71,8 +71,7 @@ class TeamPageList : AppCompatActivity() {
                     val urlGambar = selectedGame.gambar; //url gambar
                     //gunakan picasso untuk nampilin gambar
                     val builder = Picasso.Builder(this) //pake this krn di activity
-                    builder.listener { picasso, uri, exception ->
-                        exception.printStackTrace() }
+                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(urlGambar).into(binding.imgCabang) //diload dimana
                 }
             },

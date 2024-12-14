@@ -34,7 +34,6 @@ class ProposalListActivity : AppCompatActivity() {
             val intent = Intent(this, ApplyTeamActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     override fun onResume() {
@@ -63,8 +62,7 @@ class ProposalListActivity : AppCompatActivity() {
                     //baca data dari json mesagenya apa
                     val msgTim=obj.getString("message")
                     //tampilin di toast pesannya apa
-                    Toast.makeText(this, msgTim, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, msgTim, Toast.LENGTH_SHORT).show()
                 }
             },
             Response.ErrorListener {
@@ -78,6 +76,12 @@ class ProposalListActivity : AppCompatActivity() {
             }
         }
         q.add(stringRequest)
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

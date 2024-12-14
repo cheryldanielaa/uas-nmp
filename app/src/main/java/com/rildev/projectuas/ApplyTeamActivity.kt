@@ -24,18 +24,23 @@ class ApplyTeamActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding=ActivityApplyTeamBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
         var idGame=0
         var idTeam=0
+
         setContentView(binding.root)
+
         val listGame=mutableListOf<Pair<Int, String>>()
         val listTeam=mutableListOf<Pair<Int, String>>()
-        val qGem=
-            Volley.newRequestQueue(this) //karena layout sign in itu activity, maka pake this
+
+        val qGem= Volley.newRequestQueue(this) //karena layout sign in itu activity, maka pake this
+
         //panggil url dimana apinya dibuat
         val urlGem="https://ubaya.xyz/native/160422026/project/getcabang.php"
         val stringRequestGem=object : StringRequest(
             Request.Method.POST,
             urlGem,
+
             //klo berhasil
             Response.Listener
             {
@@ -48,7 +53,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                     for (i in 0 until dataArray.length()) {
                         idGame=dataArray.getJSONObject(i).getInt("idgame")
                         val nameGame=dataArray.getJSONObject(i).getString("name")
-//                        Log.d("micheleGame", nameGame)
+                        //Log.d("micheleGame", nameGame)
                         listGame.add(Pair(idGame, nameGame))
 
                     }
@@ -80,8 +85,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                 id: Long
             ) {
                 val selectedGameId=listGame[position].first // Mendapatkan id dari listGame
-                val qTim=
-                    Volley.newRequestQueue(this@ApplyTeamActivity) //karena layout sign in itu activity, maka pake this
+                val qTim= Volley.newRequestQueue(this@ApplyTeamActivity) //karena layout sign in itu activity, maka pake this
                 //panggil url dimana apinya dibuat
                 val urlTim="https://ubaya.xyz/native/160422026/project/getteam.php"
                 val stringRequestTim=object : StringRequest(
@@ -91,9 +95,9 @@ class ApplyTeamActivity : AppCompatActivity() {
                     Response.Listener
                     {
                         //baca data dari json
-
                         val objTim=JSONObject(it)
                         Log.d("BAPAKKAU", it)
+
                         //klo resultnya OK
                         if (objTim.getString("result") == "OK") {
                             listTeam.clear()
@@ -133,12 +137,10 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Log.d("Kirim PHP", "Berhasil kirim ke php")
                 qTim.add(stringRequestTim)
 
-                // Gunakan selectedGameId untuk keperluan selanjutnya, misalnya:
-//                Log.d("Selected Game ID", selectedGameId.toString())
+                //Log.d("Selected Game ID", selectedGameId.toString())
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
 
         }
@@ -149,7 +151,7 @@ class ApplyTeamActivity : AppCompatActivity() {
             val selectedTeamPosition=binding.spinnerTeam.selectedItemPosition
             val selectedTeamID=listTeam[selectedTeamPosition].first
 
-            val desc=binding.txtDescription.text.toString()
+            val desc = binding.txtDescription.text.toString()
 
             if (desc.isBlank()) {
                 Toast.makeText(this, "Description tidak boleh kosong", Toast.LENGTH_SHORT).show()
@@ -162,14 +164,13 @@ class ApplyTeamActivity : AppCompatActivity() {
             if(userId!=-1){
                 val queueApply=Volley.newRequestQueue(this)
                 val urlApply="https://ubaya.xyz/native/160422026/project/insertproposal.php"
-                val stringRequestTim=object : StringRequest(
+                val stringRequestTim = object : StringRequest(
                     Request.Method.POST,
                     urlApply,
                     //klo berhasil
                     Response.Listener
                     {
                         //baca data dari json
-
                         val objApply=JSONObject(it)
                         //klo resultnya OK
                         if (objApply.getString("result") == "OK") {
@@ -200,6 +201,9 @@ class ApplyTeamActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val intent = Intent(this, ProposalListActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

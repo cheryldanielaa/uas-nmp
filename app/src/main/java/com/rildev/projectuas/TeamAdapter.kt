@@ -72,7 +72,6 @@ class TeamAdapter(private var teamList: List<TeamBank>):RecyclerView.Adapter<Tea
                 }
             }
             q.add(stringRequest)
-
         }
     }
     override fun getItemCount(): Int {

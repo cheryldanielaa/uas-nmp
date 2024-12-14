@@ -25,8 +25,7 @@ class MemberAdapter(private var memberList: ArrayList<MemberBank>) : RecyclerVie
         val urlGambar = memberList[position].gambarmember; //url gambar
         //gunakan picasso untuk nampilin gambar
         val builder = Picasso.Builder(holder.itemView.context)
-        builder.listener { picasso, uri, exception ->
-            exception.printStackTrace() }
+        builder.listener { picasso, uri, exception -> exception.printStackTrace() }
         Picasso.get().load(urlGambar).into(holder.binding.memberProfile)
 
     }

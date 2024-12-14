@@ -2,6 +2,8 @@ package com.rildev.projectuas
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -30,12 +32,31 @@ class SignUp : AppCompatActivity() {
             startActivity(intent)
             finish() //difinish jg biar klo dia ke sign in nda bisa keback
         }
+
+        binding.txtRepeatPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val password = binding.txtPassword.text.toString()
+                val repeatPassword = binding.txtRepeatPassword.text.toString()
+
+                if (repeatPassword != password) {
+                    binding.repeatPasswordInputLayout.error = "Passwords do not match"
+                } else {
+                    binding.repeatPasswordInputLayout.error = null
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         //klo misal checkbox dipencet, maka btn submit enabled nya nyala
         binding.checkBox.setOnClickListener{
             //status enablednya button submit = status checkednya checkbox
-            binding.btnSubmit.isEnabled=binding.checkBox.isChecked
+            binding.btnSignUp.isEnabled = binding.checkBox.isChecked
         }
-        binding.btnSubmit.setOnClickListener {
+
+        binding.btnSignUp.setOnClickListener {
             //ambil value dari textbox
             val fname = binding.txtFirstName.text.toString()
             val lname = binding.txtLastName.text.toString()
@@ -90,8 +111,7 @@ class SignUp : AppCompatActivity() {
                         }
                     }
                     q.add(stringRequest) }
-                else
-                {
+                else {
                     Toast.makeText(this, "Password yang Anda masukkan tidak sama!", Toast.LENGTH_SHORT).show()
                 }
             }

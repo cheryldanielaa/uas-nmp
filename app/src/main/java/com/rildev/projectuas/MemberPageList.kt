@@ -40,19 +40,23 @@ class MemberPageList : AppCompatActivity() {
 
         //sekarang panggil volley buat ngeset gambar biar sesuai hehe
         val idGame = member[0].idgame //ambil idgame krn pasti sama jd perwakilan index 0 aja
+
         //ambil nama tim
         val namaTim = member[0].teamname
         binding.txtTeams.text=namaTim //set textbox sesuai nama tim
+
         //jalanin query pake volley
         val q = Volley.newRequestQueue(this) //krn dia activity
         //masukin link ubaya xyz
         val url = "https://ubaya.xyz/native/160422026/project/carigame.php"
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
+
             //klo berhasil
             Response.Listener {
                 //baca data dari json
                 val obj = JSONObject(it)
+
                 //klo resultnya OK
                 if (obj.getString("result") == "OK") {
                     //klo diliat dari json viewer, objek besarnya namanya data
@@ -69,8 +73,7 @@ class MemberPageList : AppCompatActivity() {
                     val urlGambar = selectedGame.gambar; //url gambar
                     //gunakan picasso untuk nampilin gambar
                     val builder = Picasso.Builder(this) //pake this krn di activity
-                    builder.listener { picasso, uri, exception ->
-                        exception.printStackTrace() }
+                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(urlGambar).into(binding.imgLogo) //diload dimana
                 }
             },
