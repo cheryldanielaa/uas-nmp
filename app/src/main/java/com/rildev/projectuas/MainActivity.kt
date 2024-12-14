@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         //deklarasikan view binding
-
         //karena dia pake drawer maka bindingnya jadi di drawerlayout
         binding = DrawerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -79,15 +78,30 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.mainActivity.bottomNav.setOnItemSelectedListener {
-            binding.mainActivity.viewPager.currentItem = when (it.itemId) {
-                R.id.WhatWePlay -> 0 //klo index ke 0 di bottomNav=0, maka what we play
-                R.id.OurSchedule -> 1 //klo index ke 1 di bottomNav=1, maka  our schedule
-                R.id.WhoWeAre -> 2 //klo index ke 2 di bottomNav=2, maka who we are
-                else -> 0 // default to home
+            when (it.itemId) {
+                R.id.WhatWePlay -> {
+                    // Jika item di bottom navigation dipilih sebagai "What We Play"
+                    binding.mainActivity.viewPager.currentItem = 0
+                    binding.mainActivity.toolbarTitle.text = "E-Sports"
+                }
+                R.id.OurSchedule -> {
+                    // Jika item di bottom navigation dipilih sebagai "Our Schedule"
+                    binding.mainActivity.viewPager.currentItem = 1
+                    binding.mainActivity.toolbarTitle.text = "Our Schedule"
+                }
+                R.id.WhoWeAre -> {
+                    // Jika item di bottom navigation dipilih sebagai "Who We Are"
+                    binding.mainActivity.viewPager.currentItem = 2
+                    binding.mainActivity.toolbarTitle.text = "Who We Are"
+                }
+                else -> {
+                    //default balik ke home HEHEHE
+                    binding.mainActivity.viewPager.currentItem = 0
+                    binding.mainActivity.toolbarTitle.text = "E-Sports"
+                }
             }
             true
         }
-
         //atur buat apa yang terjadi klo apply team dan sign out diklik
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {

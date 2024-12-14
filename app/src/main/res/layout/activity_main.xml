@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/menuToolbar"
         android:layout_width="match_parent"
@@ -20,8 +20,11 @@
 
         <!-- Container to arrange title and profile icon -->
         <RelativeLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
 
             <!-- Centered Title -->
             <TextView
