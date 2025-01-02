@@ -10,13 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="30dp"
             app:cardElevation="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +27,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#FDFDFD"
                 android:orientation="vertical">
 
                 <ImageView
@@ -36,7 +34,6 @@
                     android:layout_width="375dp"
                     android:layout_height="205dp"
                     android:layout_marginEnd="2dp"
-                    android:background="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/img" />
 
@@ -45,7 +42,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:gravity="center"
                     android:paddingStart="25dp"
                     android:text="Titan Strike"
                     android:textAlignment="textStart"
@@ -71,15 +67,14 @@
                     android:text="@string/lb_isi"
                     android:textSize="15sp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLike"
                     android:layout_width="107dp"
                     android:layout_height="54dp"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:layout_marginTop="28dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="20dp"
-                    android:backgroundTint="#F25D90"
                     android:text="0"
                     android:textAlignment="textEnd"
                     android:textSize="20sp"

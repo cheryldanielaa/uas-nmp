@@ -11,9 +11,8 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#ED729B"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,9 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="E-Sports"
-        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.477"
@@ -43,14 +42,16 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/profile" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="#F8E9EE"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeColor="?attr/colorOutline"
         app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +70,9 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/nama_event"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,10 +87,10 @@
                     android:layout_height="19dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:backgroundTint="#F7E8ED"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
                     android:src="@drawable/baseline_date_range_24"
-                    android:tint="#ED729B" />
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtTanggalEvent"
@@ -96,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="16 Okt 2024 - 10.00 AM" />
+                    android:text="16 Okt 2024 - 10.00 AM"
+                    android:textColor="?attr/colorOnSurface" />
             </LinearLayout>
 
             <LinearLayout
@@ -110,10 +113,10 @@
                     android:layout_height="19dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:backgroundTint="#F7E8ED"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@null"
                     android:src="@drawable/baseline_location_on_24"
-                    android:tint="#ED729B" />
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:id="@+id/txtTempatEvent"
@@ -122,7 +125,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Los Angeles, CA"
-                    android:textColor="#615B5B" />
+                    android:textColor="?attr/colorOnSurface" />
             </LinearLayout>
 
             <TextView
@@ -132,7 +135,8 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:text="Valorant"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"/>
 
             <TextView
                 android:id="@+id/txtNamaTeam"
@@ -141,7 +145,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/nama_team"
-                android:textColor="#615B5B"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
 
             <TextView
@@ -154,22 +158,20 @@
                 android:layout_marginBottom="20dp"
                 android:lineSpacingExtra="4sp"
                 android:text="@string/deskripsi_event"
-                android:textColor="#615B5B" />
+                android:textColor="?attr/colorOnSurface" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNotify"
-                style="@style/Widget.Material3.Button.IconButton.Outlined"
-                android:layout_width="123dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="240dp"
+                android:layout_marginStart="220dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#FDF9F9"
                 android:text="Notify Me"
                 android:textAlignment="center"
-                android:textColor="#0F0E0E"
                 app:icon="@drawable/baseline_notifications_active_24"
-                app:iconTint="#000000" />
+                app:iconTint="?attr/colorOnSurface" />
 
         </LinearLayout>
 
@@ -180,5 +182,5 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/regional_qualifier_valorant" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

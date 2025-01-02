@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F7DCE5">
+    android:background="?attr/android:colorBackground">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/recTeam"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        app:cardBackgroundColor="#FADEE7"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -30,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_marginTop="5dp"
-                android:background="#E1F9DDE6"
+                android:textColor="?attr/colorOnSurface"
                 android:gravity="center"
                 android:text="TEAM EXAMPLE"
                 android:textAlignment="center"
@@ -39,5 +37,4 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

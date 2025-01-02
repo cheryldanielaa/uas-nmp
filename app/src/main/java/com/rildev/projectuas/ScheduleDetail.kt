@@ -11,6 +11,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.color.MaterialColors
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rildev.projectuas.databinding.ActivityScheduleDetailBinding
@@ -95,7 +96,9 @@ class ScheduleDetail : AppCompatActivity() {
                         builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
                         val dialog = builder.create()
                         dialog.setOnShowListener {
-                            dialog.window?.decorView?.setBackgroundColor(Color.parseColor("#F0B5C9"))
+                            //sesuaiin warna notif sama material design
+                            val backgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer, Color.WHITE)
+                            dialog.window?.decorView?.setBackgroundColor(backgroundColor)
                         }
                         dialog.show()
                     }

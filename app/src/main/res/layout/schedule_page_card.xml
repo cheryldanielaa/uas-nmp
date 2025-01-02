@@ -14,6 +14,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -38,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:textColor="?attr/colorPrimary"
                     android:text="10"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -46,9 +48,10 @@
                     android:id="@+id/txtBulanEvent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="0dp"
                     android:text="SEP"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -60,6 +63,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="Regional Qualifier - Valorant"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
 
             <TextView
@@ -72,8 +76,8 @@
                 android:gravity="center_vertical"
                 android:text="Valorant - Team A"
                 android:textAlignment="center"
-                android:textColor="#757070"
                 android:textSize="13sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textStyle="bold" />
 
         </LinearLayout>

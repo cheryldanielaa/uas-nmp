@@ -63,7 +63,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:textColor="#181616"
                 tools:text="enter your last name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -82,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:textColor="#181616"
                 tools:text="enter your username" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPassword"
-                android:textColor="#181616"
                 tools:text="enter your password" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -122,7 +119,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text|textPassword"
-                android:textColor="#181616"
                 tools:text="enter your password" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +137,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
