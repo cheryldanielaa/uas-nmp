@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SignIn::class.java)
             startActivity(intent)
             finish()
-            return
         }
 
         //deklarasikan view binding
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         //tambahin hamburger wow
         supportActionBar?.setDisplayHomeAsUpEnabled(false); //krn mau pke hamburger icon buat ke navbar makanya set false
 
-        //buat hubungin drawer ke playlist detailnya
+        //buat hubungin drawer ke actionbar
         var drawerToggle = ActionBarDrawerToggle(
             this, binding.drawerLayout,
             binding.mainActivity.menuToolbar, R.string.app_name, R.string.app_name
@@ -74,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         //biar nama app e ga kluar sbelah e-sport T.T
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //buat show hamburger
         drawerToggle.isDrawerIndicatorEnabled = true
         drawerToggle.syncState()
 
@@ -154,42 +154,17 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        val headerBinding = DrawerHeaderBinding.bind(binding.navView.getHeaderView(0))
+
         //tampilin Welcome, Andrew Ng anjai
         var fullName = sharedPreferences.getString("user_full_name", "User") //kalo error kluarin "User"
         fullName = fullName?.uppercase()
-
-        val headerBinding = DrawerHeaderBinding.bind(binding.navView.getHeaderView(0))
         headerBinding.txtNamaPengguna.text = "Welcome, $fullName"
 
-        val url = "https://ubaya.xyz/native/160422026/project/aboutus.php"
-        val q = Volley.newRequestQueue(this)
-
-        //objek StringRequest punya 4 parameter -> 1. request method || 2. url || 3. listener kalo sukses -> if server status OK || 4. listener kalo error
-        var stringRequest = StringRequest(
-            Request.Method.POST,
-            url,
-            {
-                Log.d("apiresult", it) //it contains JSON string from API
-                val obj = JSONObject(it)
-                if (obj.getString("result") == "OK") {
-                    val data = obj.getJSONArray("data")
-
-                    val sType = object : TypeToken<List<AboutUs>>() {}.type
-                    val aboutUs: List<AboutUs> = Gson().fromJson(data.toString(), sType)
-
-                    val first = aboutUs[0]
-
-                    val imageUrl = first.photo
-                    val builder = Picasso.Builder(binding.root.context)
-                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
-                    Picasso.get().load(imageUrl).into(headerBinding.imgLogoApp)
-
-                    Log.d("cekisiarray", aboutUs.toString())
-                }
-            },
-            {
-                Log.e("apiresult", it.message.toString())
-            })
-        q.add(stringRequest)
+        //tampilin logo di drawer
+        var logo = sharedPreferences.getString("user_logo", "Photo") //kalo error kluarin "Photo"
+        val builder = Picasso.Builder(binding.root.context)
+        builder.listener { picasso, uri, exception -> exception.printStackTrace() }
+        Picasso.get().load(logo).into(headerBinding.imgLogoApp)
     }
 }

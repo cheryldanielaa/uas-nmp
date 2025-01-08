@@ -123,13 +123,7 @@ class SignIn : AppCompatActivity() {
             }
         }
 
-        //klo login statenya true (shared preferences), maka dia langsung ke menu utama
-        if (login_state == true) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish() //biar gk bs ngeback
-        }
-
+        //nampilin logo di sign in
         val url = "https://ubaya.xyz/native/160422026/project/aboutus.php"
         val q = Volley.newRequestQueue(this)
 
@@ -155,6 +149,10 @@ class SignIn : AppCompatActivity() {
                     builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(imageUrl).into(binding.imgLogo)
 
+                    val editor = sharedPreferences.edit()
+                    editor.putString("user_logo", imageUrl)
+                    editor.apply()
+
                     Log.d("cekisiarray", aboutUs.toString())
                 }
             },
@@ -162,6 +160,13 @@ class SignIn : AppCompatActivity() {
                 Log.e("apiresult", it.message.toString())
             })
         q.add(stringRequest)
+
+        //klo login statenya true (shared preferences), maka dia langsung ke menu utama
+        if (login_state == true) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() //biar gk bs ngeback
+        }
 
         binding.btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)

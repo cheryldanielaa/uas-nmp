@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.android.volley.Request
+import com.google.android.material.R
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -97,7 +98,7 @@ class ScheduleDetail : AppCompatActivity() {
                         val dialog = builder.create()
                         dialog.setOnShowListener {
                             //sesuaiin warna notif sama material design
-                            val backgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer, Color.WHITE)
+                            val backgroundColor = MaterialColors.getColor(this, android.R.attr.colorBackground, Color.WHITE)
                             dialog.window?.decorView?.setBackgroundColor(backgroundColor)
                         }
                         dialog.show()

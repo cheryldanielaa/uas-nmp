@@ -25,49 +25,15 @@ class WhoWeAreFragment : Fragment() {
         //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-
-        val url = "https://ubaya.xyz/native/160422026/project/aboutus.php"
-        val q = Volley.newRequestQueue(activity)
-
-        //objek StringRequest punya 4 parameter -> 1. request method || 2. url || 3. listener kalo sukses -> if server status OK || 4. listener kalo error
-        var stringRequest = StringRequest(
-            Request.Method.POST,
-            url,
-            {
-                Log.d("apiresult", it) //it contains JSON string from API
-                val obj = JSONObject(it)
-                if (obj.getString("result") == "OK") {
-                    val data = obj.getJSONArray("data")
-
-                    val sType = object : TypeToken<List<AboutUs>>() {}.type
-                    val aboutUs: List<AboutUs> = Gson().fromJson(data.toString(), sType)
-
-                    val first = aboutUs[0]
-
-                    binding.txtNama.text = first.name
-                    binding.txtDescription.text = first.description
-
-                    val imageUrl = first.photo
-                    val builder = Picasso.Builder(binding.root.context)
-                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
-                    Picasso.get().load(imageUrl).into(binding.imgLogo)
-
-                    var newLikes = first.num_likes
-                    binding.btnLike.text = "$newLikes"
-
-                    Log.d("cekisiarray", aboutUs.toString())
-                }
-            },
-            {
-                Log.e("apiresult", it.message.toString())
-            })
-        q.add(stringRequest)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
         ): View? {
+
+        show()
+
         var likesId = 1
 
         binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
@@ -86,7 +52,7 @@ class WhoWeAreFragment : Fragment() {
                     // Parsing response JSON untuk memastikan update berhasil
                     val obj = JSONObject(response)
                     if (obj.getString("result") == "OK") {
-                        updatedLike()
+                        show()
                     } else {
                         Toast.makeText(activity, "Error updating likes", Toast.LENGTH_SHORT).show()
                     }
@@ -115,7 +81,7 @@ class WhoWeAreFragment : Fragment() {
             }
     }
 
-    private fun updatedLike() {
+    private fun show() {
         val url = "https://ubaya.xyz/native/160422026/project/aboutus.php"
         val q = Volley.newRequestQueue(activity)
 
@@ -133,6 +99,14 @@ class WhoWeAreFragment : Fragment() {
                     val aboutUs: List<AboutUs> = Gson().fromJson(data.toString(), sType)
 
                     val first = aboutUs[0]
+
+                    binding.txtNama.text = first.name
+                    binding.txtDescription.text = first.description
+
+                    val imageUrl = first.photo
+                    val builder = Picasso.Builder(binding.root.context)
+                    builder.listener { picasso, uri, exception -> exception.printStackTrace() }
+                    Picasso.get().load(imageUrl).into(binding.imgLogo)
 
                     var newLikes = first.num_likes
                     binding.btnLike.text = "$newLikes"

@@ -42,7 +42,8 @@ class SignUp : AppCompatActivity() {
 
                 if (repeatPassword != password) {
                     binding.repeatPasswordInputLayout.error = "Passwords do not match"
-                } else {
+                }
+                else {
                     binding.repeatPasswordInputLayout.error = null
                 }
             }
@@ -70,8 +71,7 @@ class SignUp : AppCompatActivity() {
                 if(password==repeatPassword) //klo sama jalanin volleynya
                 {
                     //urus ke database
-                    val q =
-                        Volley.newRequestQueue(this) //karena layout sign in itu activity, maka pake this
+                    val q = Volley.newRequestQueue(this) //karena layout sign in itu activity, maka pake this
                     //panggil url dimana apinya dibuat
                     val url = "https://ubaya.xyz/native/160422026/project/signup.php"
                     //kirim data ke db waktu mau signup

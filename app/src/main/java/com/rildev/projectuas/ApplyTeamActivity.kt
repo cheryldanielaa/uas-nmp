@@ -30,6 +30,7 @@ class ApplyTeamActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        //Pair ini biar bisa lebih dari 1 type
         val listGame=mutableListOf<Pair<Int, String>>()
         val listTeam=mutableListOf<Pair<Int, String>>()
 
@@ -60,6 +61,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                     val adapterGem=ArrayAdapter(
                         this,
                         android.R.layout.simple_list_item_1,
+                        //second ini ambil parameter kedua dari Pair
                         listGame.map { it.second }
                     )
                     binding.spinnerGame.adapter=adapterGem
@@ -96,7 +98,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                     {
                         //baca data dari json
                         val objTim=JSONObject(it)
-                        Log.d("BAPAKKAU", it)
+                        Log.d("haii", it)
 
                         //klo resultnya OK
                         if (objTim.getString("result") == "OK") {
@@ -106,8 +108,8 @@ class ApplyTeamActivity : AppCompatActivity() {
                                 idTeam=dataArrayTim.getJSONObject(i).getInt("idteam")
                                 val nameTeam=dataArrayTim.getJSONObject(i).getString("name")
                                 listTeam.add(Pair(idTeam, nameTeam))
-
                             }
+
                             val adapterTim=ArrayAdapter(
                                 this@ApplyTeamActivity,
                                 android.R.layout.simple_list_item_1,
@@ -153,7 +155,7 @@ class ApplyTeamActivity : AppCompatActivity() {
 
             val desc = binding.txtDescription.text.toString()
 
-            if (desc.isBlank()) {
+            if (desc.isEmpty()) {
                 Toast.makeText(this, "Description tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -196,7 +198,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                 }
                 queueApply.add(stringRequestTim)
             }
-            else{
+            else {
                 Toast.makeText(this, "ID member tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }

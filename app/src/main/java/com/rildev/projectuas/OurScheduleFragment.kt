@@ -22,7 +22,6 @@ private const val KEY_EVENTS="schedule"
 //krn yg ditampilin ecycler view, jd gak pake ListFragment, tpi Fragment biasa
 class OurScheduleFragment : Fragment() {
     //Our Schedule ini menyimpan list dari schedule yang ada
-
     //array kosongan utk menampung data yang dikirimkan dari main activity
     private var scheduleList:ArrayList<ScheduleBank> = ArrayList()
 
