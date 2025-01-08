@@ -58,8 +58,8 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Sign In"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -67,9 +67,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="20dp"
                 android:hint="Username"
                 app:endIconDrawable="@drawable/baseline_person_24"
                 app:endIconMode="custom">
@@ -87,9 +87,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="20dp"
                 android:hint="Password"
                 app:endIconDrawable="@drawable/baseline_lock_24"
                 app:endIconMode="custom">
@@ -104,13 +104,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSignIn"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:text="Sign In"
-                style="@style/Widget.Material3.Button"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Sign In" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
