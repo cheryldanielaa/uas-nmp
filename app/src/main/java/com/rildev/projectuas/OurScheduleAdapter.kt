@@ -17,8 +17,10 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
     //view holder extend recycle >> dimana recycle itu parentnya
     //artinya view pny akses ke UI, dmn cabang list binding itu file xml cardnya
 
+    //pake listOf soalnya mau disort, karena ArrayList itu gabisa diedit, jadi diganti dlu
     private var scheduleValid = listOf<ScheduleBank>()
 
+    //init ini kayak onCreate jadi dia dijalankan waktu Adapter pertama kali dibuat, dia function yang dijalankan paling pertama
     init {
         //urutkan list ascending tanggal event
         val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
@@ -32,7 +34,6 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
 //        }
     }
 
-//    //bandingin tanggal, tanpa waktu (jam, menit, detik, dll) biar tanggal hari ini juga ikut
 //    private fun isDateBeforeToday(eventDate: Date): Boolean {
 //        val calendarEvent = Calendar.getInstance()
 //        calendarEvent.time = eventDate
@@ -43,8 +44,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
 //
 //        return calendarEvent.before(today)
 //    }
-//
-//    //reset komponen waktu pada Calendar menjadi 00:00:00
+
 //    private fun resetTime(calendar: Calendar) {
 //        calendar.set(Calendar.HOUR_OF_DAY, 0)
 //        calendar.set(Calendar.MINUTE, 0)
@@ -68,15 +68,15 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        //menghubungkan layout dgn data (array question)
+        //menghubungkan layout dgn data
         //fungsi ini dipanggil sebanyak item yg ingin ditampilkan
         //poisition itu mksdnya indexnya brp (berdasarkan array)
         //nama custom layout cardview diwakilkan oleh holder
-        //holder itu di cabangviewholder >> isi elemen di card
+        //holder itu di scheduleviewholder >> isi elemen di card
 
         val tanggal = scheduleValid[position].tanggalEvent
 
-        //format 16-10-2024 menjadi 16 OCT 2024
+        //parse tanggal dari String ke Date
         val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
         var tanggalDate: Date? = null
         try {
@@ -85,6 +85,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
             e.printStackTrace() //tangani parsing gagal
         }
 
+        //format 16-10-2024 menjadi 16 OCT 2024
         val format = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
         val tanggalPanjang = format.format(tanggalDate)
         val dateParts = tanggalPanjang.split(" ")
@@ -101,6 +102,7 @@ class OurScheduleAdapter(private val schedule: ArrayList<ScheduleBank>) : Recycl
 
         holder.binding.cardSchedule.setOnClickListener {
             val activity = holder.itemView.context as Activity
+            //parse balik scheduleValid ke List
             var scheduleValid = scheduleValid.toMutableList()
             val intent = Intent(activity, ScheduleDetail::class.java)
             intent.putExtra(ScheduleDetail.SCHEDULE_ID, scheduleValid[position].eventId)

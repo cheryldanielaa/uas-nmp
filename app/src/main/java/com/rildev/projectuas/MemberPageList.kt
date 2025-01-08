@@ -47,11 +47,11 @@ class MemberPageList : AppCompatActivity() {
 
         //jalanin query pake volley
         val q = Volley.newRequestQueue(this) //krn dia activity
+
         //masukin link ubaya xyz
         val url = "https://ubaya.xyz/native/160422026/project/carigame.php"
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
-
             //klo berhasil
             Response.Listener {
                 //baca data dari json
@@ -61,10 +61,13 @@ class MemberPageList : AppCompatActivity() {
                 if (obj.getString("result") == "OK") {
                     //klo diliat dari json viewer, objek besarnya namanya data
                     val data = obj.getJSONArray("data")
+
                     //index 0 krn hasuilnya cmn 1 dan mau ambil objek ke 0 tentunya
                     val cabangJson = data.getJSONObject(0)
+
                     //untuk mendapatkan object game yg dipilih skrg
                     val sType = object : TypeToken<Cabang>() {}.type
+
                     //baca data user dari json
                     selectedGame = Gson().fromJson<Cabang>(cabangJson.toString(), sType)
                     Log.d("halocheryl",selectedGame.toString())

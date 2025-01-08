@@ -24,6 +24,7 @@ import java.util.*
 class ScheduleDetail : AppCompatActivity() {
     private lateinit var binding: ActivityScheduleDetailBinding
 
+    //buat terima intent schedule ID dari OurScheduleAdapter
     companion object {
         const val SCHEDULE_ID = "schedule_id"
     }
@@ -60,14 +61,14 @@ class ScheduleDetail : AppCompatActivity() {
                     val schedJson = data.getJSONObject(0)
 
                     //untuk mendapatkan object user yang lagi login
+                    //dia TypeTokennya ga array karna cmn ada 1 objek (bikos sudah di filter pake query & outputnya cmn 1 objek)
                     val sType = object : TypeToken<ScheduleBank>() {}.type
 
-                    //param ke 2 -> specifies the target class into which Gson should map the JSON data.
+                    //parameter ke 2 -> specifies the target class into which Gson should map the JSON data.
                     //Gson will map each key in the JSON to the corresponding property in the ScheduleBank class.
                     //thankyou gson luv <3
                     schedule = Gson().fromJson(schedJson.toString(), sType)
 
-                    // Format the event date
                     val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
                     val tanggalDate: Date? = inputFormat.parse(schedule.tanggalEvent)
                     val format = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
@@ -79,17 +80,16 @@ class ScheduleDetail : AppCompatActivity() {
                     binding.txtNamaCabang.text = schedule.namaCabang
                     binding.txtNamaTeam.text = schedule.teamName
                     binding.txtDeskripsiEvent.text = schedule.deskripsiLomba
+
                     val imageUrl = schedule.gambarLomba
                     val builder = Picasso.Builder(this)
                     builder.listener { picasso, uri, exception -> exception.printStackTrace() }
                     Picasso.get().load(imageUrl).into(binding.imgEvent)
 
-                    // Hide the notify button if the event date has passed
                     if (isDateBeforeToday(tanggalDate)) {
                         binding.btnNotify.visibility = View.GONE
                     }
 
-                    // Set notification button functionality
                     binding.btnNotify.setOnClickListener {
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("Notification")
@@ -98,8 +98,9 @@ class ScheduleDetail : AppCompatActivity() {
                         val dialog = builder.create()
                         dialog.setOnShowListener {
                             //sesuaiin warna notif sama material design
-                            val backgroundColor = MaterialColors.getColor(this, android.R.attr.colorBackground, Color.WHITE)
+                            val backgroundColor = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer, Color.WHITE)
                             dialog.window?.decorView?.setBackgroundColor(backgroundColor)
+
                         }
                         dialog.show()
                     }
@@ -117,6 +118,7 @@ class ScheduleDetail : AppCompatActivity() {
         q.add(stringRequest)
     }
 
+    //dia set komponen time di Calendar eventDate & today jadi zero semua biar waktu compare itu solely based on tanggal doang
     private fun isDateBeforeToday(eventDate: Date?): Boolean {
         val calendarEvent = Calendar.getInstance()
         eventDate?.let { calendarEvent.time = it }

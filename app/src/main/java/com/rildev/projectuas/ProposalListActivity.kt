@@ -42,6 +42,7 @@ class ProposalListActivity : AppCompatActivity() {
         val userId = sharedPreferences.getInt("user_id", 1)
 
         val q = Volley.newRequestQueue(this) //krn dia activity
+
         //masukin link ubaya xyz
         val url = "https://ubaya.xyz/native/160422026/project/getproposal.php"
         val stringRequest = object : StringRequest(
@@ -50,6 +51,7 @@ class ProposalListActivity : AppCompatActivity() {
             Response.Listener {
                 //baca data dari json
                 val obj = JSONObject(it)
+
                 //klo resultnya OK
                 if (obj.getString("result") == "OK") {
                     val dataArray=obj.getJSONArray("data")
@@ -78,6 +80,8 @@ class ProposalListActivity : AppCompatActivity() {
         q.add(stringRequest)
     }
 
+    //klo misal habis ngisi apply team, kan dia balik ke proposal list lagi, klo pencet back, proposal list muncul lg kyk double karna apply team di finish()
+    //biar ga double, tambahin finish() pas pencet back
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)

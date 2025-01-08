@@ -28,6 +28,7 @@ class AchievementDetails : AppCompatActivity() {
     private var  achievement:ArrayList<Achievement> = ArrayList()
     lateinit var selectedGame:Cabang //utk nampung cabang yg dipilih user
     private var yearlyachievement:ArrayList<Achievement> = ArrayList() //tampung achievement per tahun
+
     override fun onCreate(savedInstanceState: Bundle?) {
         //byebye night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -35,6 +36,7 @@ class AchievementDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAchievementDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         //retrieve value dari object yang dikirimkan dari what we play yang dipilih
         achievement = intent.getParcelableArrayListExtra<Achievement>(CABANG_ACHIEVEMENT) ?: ArrayList()
 
@@ -45,7 +47,7 @@ class AchievementDetails : AppCompatActivity() {
         //jalanin query pake volley
         val q = Volley.newRequestQueue(this) //krn dia activity
 
-        //masukin link ubaya xyz
+        //buat munculin gambar game nya
         val url = "https://ubaya.xyz/native/160422026/project/carigame.php"
         val stringRequest = object : StringRequest(
             Request.Method.POST, url,
@@ -59,12 +61,16 @@ class AchievementDetails : AppCompatActivity() {
                 if (obj.getString("result") == "OK") {
                     //klo diliat dari json viewer, objek besarnya namanya data
                     val data = obj.getJSONArray("data")
+
                     //index 0 krn hasuilnya cmn 1 dan mau ambil objek ke 0 tentunya
                     val cabangJson = data.getJSONObject(0)
+
                     //untuk mendapatkan object game yg dipilih skrg
                     val sType = object : TypeToken<Cabang>() {}.type
+
                     //baca data user dari json
                     selectedGame = Gson().fromJson<Cabang>(cabangJson.toString(), sType)
+
                     //klo berhasil maka set bindingnya sesuai url selected game hehe
                     val urlGambar = selectedGame.gambar; //url gambar
                     //gunakan picasso untuk nampilin gambar
@@ -88,18 +94,19 @@ class AchievementDetails : AppCompatActivity() {
         q.add(stringRequest)
 
         //buat sumber data utk dropdown
-        // Ambil tahun yang unik dan urutkan secara ascending
+        //ambil tahun yang unik dan urutkan secara ascending
         val years = achievement.map { it.year } //it.year >> ambil komponen year dr array achievement
             .distinct()  // Hanya ambil yang unik
             .sorted()    // Urutkan secara ascending
 
-        // Tambahkan "All" di bagian atas
-        val yearsWithAll = listOf("All") + years.map { it.toString() } //val yearsnya smua diubah jd tostring
+        //tambahkan "All" di bagian atas
+        val yearsWithAll = listOf("All") + years.map { it.toString() } //val yearsnya smua diubah jd string
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
             yearsWithAll
         )
+
         //pasang adapter ke spinner
         binding.spinnerYear.adapter = adapter
 
@@ -129,10 +136,12 @@ class AchievementDetails : AppCompatActivity() {
                         Response.Listener {
                             //baca data dari json
                             val obj = JSONObject(it)
+
                             //klo resultnya OK
                             if (obj.getString("result") == "OK") {
                                 //klo diliat dari json viewer, objek besarnya namanya data
                                 val data = obj.getJSONArray("data")
+
                                 val sType = object : TypeToken<ArrayList<Achievement>>() {}.type
                                 yearlyachievement = Gson().fromJson(data.toString(), sType)
                                 //logcat sgt berjaya <333

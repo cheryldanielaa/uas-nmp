@@ -31,6 +31,7 @@ class WhatWePlayFragment : Fragment() {
 
         //di dalem oncreate ini tampilkan hubungan sama si volley lov
         val q = Volley.newRequestQueue(activity) //karena dia fragment, maka ambil context dr activity/induknya
+
         val url = "https://ubaya.xyz/native/160422026/project/getcabang.php"; //masukin url ubaya xyz disini
 
         //buat webservice url >> semuanya dijalankan disini

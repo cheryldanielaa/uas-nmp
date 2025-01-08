@@ -53,6 +53,7 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
         with(holder.binding) { //tampilin nama cabang dan descriptionnya apa
             txtNamaCabang.text = cabangs[position].name
             txtGameDesc.text = cabangs[position].description
+
             //atur button teams
             btnTeams.setOnClickListener {
                 val q = Volley.newRequestQueue(holder.itemView.context)
@@ -67,7 +68,9 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
                         if (obj.getString("result") == "OK") {
                             //klo diliat dari json viewer, objek besarnya namanya data
                             val data = obj.getJSONArray("data")
+
                             val sType = object : TypeToken<ArrayList<TeamBank>>() {}.type
+
                             //baca data user dari json
                             timList = Gson().fromJson(data.toString(), sType)
                             Log.d("apiresult",timList.toString())
@@ -110,7 +113,9 @@ class CabangAdapter(private val cabangs: ArrayList<Cabang>):RecyclerView.Adapter
                         if (obj.getString("result") == "OK") {
                             //klo diliat dari json viewer, objek besarnya namanya data
                             val data = obj.getJSONArray("data")
+
                             val sType = object : TypeToken<ArrayList<Achievement>>() {}.type
+
                             //baca data user dari json
                             achievementList = Gson().fromJson(data.toString(), sType)
                             Log.d("halonmp",achievementList.toString())

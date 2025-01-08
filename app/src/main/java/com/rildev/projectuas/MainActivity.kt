@@ -54,17 +54,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         //deklarasikan view binding
-        //karena dia pake drawer maka bindingnya jadi di drawerlayout
+        //karena main activity udh include ke drawer maka bindingnya jadi di drawerlayout
         binding = DrawerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //set ada toolbar di atas
+        //binding.mainActivity karena mainActivity ada di dalem binding (drawer layout)
         setSupportActionBar(binding.mainActivity.menuToolbar)
 
-        //tambahin hamburger wow
-        supportActionBar?.setDisplayHomeAsUpEnabled(false); //krn mau pke hamburger icon buat ke navbar makanya set false
+        //buat hamburger
+        supportActionBar?.setDisplayHomeAsUpEnabled(false); //krn mau pke hamburger icon buat ke navbar makanya set false || klo true, dia jadi button back
 
-        //buat hubungin drawer ke actionbar
+        //buat hubungin nav drawer ke actionbar
         var drawerToggle = ActionBarDrawerToggle(
             this, binding.drawerLayout,
             binding.mainActivity.menuToolbar, R.string.app_name, R.string.app_name
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         //klo mau kirimin value masukin disini, jangan lewat begintransaction karena fungsinya sama aja
         //klo kamu pake begin transaction jd numpuk gak jelas, trs dia gak bisa nggeser
+        //ini urutan addnya sesuai bottomnav
         fragments.add(WhatWePlayFragment())
         fragments.add(OurScheduleFragment())
         fragments.add(WhoWeAreFragment())
@@ -154,6 +156,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        //buat bind View dari header (dalem navView) dengan ViewBinding biar bisa akses elemen di drawer_header pake id
+        //getHeaderView itu emg function dari navView buat dapetin View dari header berdasarkan index
         val headerBinding = DrawerHeaderBinding.bind(binding.navView.getHeaderView(0))
 
         //tampilin Welcome, Andrew Ng anjai
@@ -161,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         fullName = fullName?.uppercase()
         headerBinding.txtNamaPengguna.text = "Welcome, $fullName"
 
-        //tampilin logo di drawer
+        //tampilin logo di header drawer
         var logo = sharedPreferences.getString("user_logo", "Photo") //kalo error kluarin "Photo"
         val builder = Picasso.Builder(binding.root.context)
         builder.listener { picasso, uri, exception -> exception.printStackTrace() }

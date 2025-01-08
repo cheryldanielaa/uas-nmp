@@ -47,8 +47,10 @@ class TeamPageList : AppCompatActivity() {
 
         //sekarang panggil volley buat ngeset gambar biar sesuai hehe
         val idGame = tim[0].idgame //ambil idgame krn pasti sama jd perwakilan index 0 aja
+
         //jalanin query pake volley
         val q = Volley.newRequestQueue(this) //krn dia activity
+
         //masukin link ubaya xyz
         val url = "https://ubaya.xyz/native/160422026/project/carigame.php"
         val stringRequest = object : StringRequest(
@@ -57,16 +59,21 @@ class TeamPageList : AppCompatActivity() {
             Response.Listener {
                 //baca data dari json
                 val obj = JSONObject(it)
+
                 //klo resultnya OK
                 if (obj.getString("result") == "OK") {
                     //klo diliat dari json viewer, objek besarnya namanya data
                     val data = obj.getJSONArray("data")
+
                     //index 0 krn hasuilnya cmn 1 dan mau ambil objek ke 0 tentunya
                     val cabangJson = data.getJSONObject(0)
+
                     //untuk mendapatkan object game yg dipilih skrg
                     val sType = object : TypeToken<Cabang>() {}.type
+
                     //baca data user dari json
                     selectedGame = Gson().fromJson<Cabang>(cabangJson.toString(), sType)
+
                     //klo berhasil maka set bindingnya sesuai url selected game hehe
                     val urlGambar = selectedGame.gambar; //url gambar
                     //gunakan picasso untuk nampilin gambar

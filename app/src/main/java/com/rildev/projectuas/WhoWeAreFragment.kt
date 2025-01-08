@@ -34,22 +34,17 @@ class WhoWeAreFragment : Fragment() {
 
         show()
 
-        var likesId = 1
-
         binding = FragmentWhoWeAreFragmentBinding.inflate(inflater, container, false)
         binding.btnLike.setOnClickListener {
             val q = Volley.newRequestQueue(activity)
             val url = "https://ubaya.xyz/native/160422026/project/set_likes.php"
 
-            // Membuat request POST
             val stringRequest = object : StringRequest(
                 Request.Method.POST,
                 url,
                 Response.Listener { response ->
-                    // Mengupdate data setelah berhasil
                     Log.d("cekparams", response)
 
-                    // Parsing response JSON untuk memastikan update berhasil
                     val obj = JSONObject(response)
                     if (obj.getString("result") == "OK") {
                         show()
@@ -59,13 +54,7 @@ class WhoWeAreFragment : Fragment() {
                 },
                 Response.ErrorListener { error ->
                     Log.e("apiresult", error.message.toString())
-                    Toast.makeText(activity, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
                 }) {
-                override fun getParams(): MutableMap<String, String> {
-                    val params = HashMap<String, String>()
-                    params["id"] = likesId.toString()
-                    return params
-                }
             }
             q.add(stringRequest)
         }

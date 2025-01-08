@@ -56,7 +56,6 @@ class ApplyTeamActivity : AppCompatActivity() {
                         val nameGame=dataArray.getJSONObject(i).getString("name")
                         //Log.d("micheleGame", nameGame)
                         listGame.add(Pair(idGame, nameGame))
-
                     }
                     val adapterGem=ArrayAdapter(
                         this,
@@ -68,7 +67,8 @@ class ApplyTeamActivity : AppCompatActivity() {
 
                 } else if (obj.getString("result") == "ERROR") {
                     //baca data dari json mesagenya apa
-                    val msg=obj.getString("message")
+                    val msg = obj.getString("message")
+
                     //tampilin di toast pesannya apa
                     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                 }
@@ -88,8 +88,10 @@ class ApplyTeamActivity : AppCompatActivity() {
             ) {
                 val selectedGameId=listGame[position].first // Mendapatkan id dari listGame
                 val qTim= Volley.newRequestQueue(this@ApplyTeamActivity) //karena layout sign in itu activity, maka pake this
+
                 //panggil url dimana apinya dibuat
                 val urlTim="https://ubaya.xyz/native/160422026/project/getteam.php"
+
                 val stringRequestTim=object : StringRequest(
                     Request.Method.POST,
                     urlTim,
@@ -121,6 +123,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                         } else if (objTim.getString("result") == "ERROR") {
                             //baca data dari json mesagenya apa
                             val msgTim=objTim.getString("message")
+
                             //tampilin di toast pesannya apa
                             Toast.makeText(this@ApplyTeamActivity, msgTim, Toast.LENGTH_SHORT)
                                 .show()
@@ -159,6 +162,7 @@ class ApplyTeamActivity : AppCompatActivity() {
                 Toast.makeText(this, "Description tidak boleh kosong", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
             val sharedPreferences = getSharedPreferences("SETTING", Context.MODE_PRIVATE)
             val userId = sharedPreferences.getInt("user_id", 1)
             Log.d("INI ID MEMBER", userId.toString())

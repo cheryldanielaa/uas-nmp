@@ -71,16 +71,16 @@ class OurScheduleFragment : Fragment() {
                     //karena JSON bentuknya object, sedangkan data bentuknya array, maka convert object jadi array
                     val data = obj.getJSONArray("data")
 
-                    //KALO PAKE GSON
-                    //ini pake object karna mau ngambil 1 class ScheduleBank
-                    val sType = object : TypeToken<List<ScheduleBank>>() {}.type
+                    //kasi tau GSON kalo JSONnya itu array of objects, ga cmn 1 objek aja
+                    val sType = object : TypeToken<ArrayList<ScheduleBank>>() {}.type
 
                     //deseralize gson string into ArrayList ScheduleBank
                     //fromJson() -> parameter 1: data yg mau dijadiin ArrayList || parameter 2: Type of object yang mau di-deseralize into
+                    //fromJson parameter pertama harus string makanya di toString()
                     val schedules: ArrayList<ScheduleBank> = Gson().fromJson(
                         data.toString(),
                         sType
-                    )//fromJson method requires String value. That is the reason why the data must be converted to String by calling toString.
+                    )
 
                     scheduleList.clear()
                     scheduleList.addAll(schedules)
