@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:id="@+id/menuTop" >
         <item
             android:id="@+id/itemApplyTeam"
-            android:title="Apply Team" />
+            android:icon="@drawable/baseline_approval_24"
+            android:title="Apply Team"
+            app:showAsAction="withText" />
     </group>
     <group android:id="@+id/menuBottom" >
         <item
             android:id="@+id/itemSignOut"
+            android:icon="@drawable/baseline_arrow_back_24"
             android:title="Sign Out" />
     </group>
 </menu>
