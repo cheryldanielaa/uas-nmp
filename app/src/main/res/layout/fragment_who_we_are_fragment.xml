@@ -69,7 +69,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLike"
-                    android:layout_width="107dp"
+                    android:layout_width="135dp"
                     android:layout_height="54dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="28dp"
