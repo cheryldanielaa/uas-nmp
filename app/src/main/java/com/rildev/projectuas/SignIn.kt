@@ -136,7 +136,6 @@ class SignIn : AppCompatActivity() {
                 val obj = JSONObject(it)
                 if (obj.getString("result") == "OK") {
                     val data = obj.getJSONArray("data")
-
                     val sType = object : TypeToken<List<AboutUs>>() {}.type
                     val aboutUs: List<AboutUs> = Gson().fromJson(data.toString(), sType)
 
